@@ -1,6 +1,7 @@
 import { contacts, type Contact, type InsertContact } from "@shared/schema";
 import { users, type User, type InsertUser } from "@shared/schema";
 import { securityReports, type SecurityReport, type InsertSecurityReport } from "@shared/schema";
+import { careerApplications, type CareerApplication, type InsertCareerApplication } from "@shared/schema";
 
 // Interface for storage operations
 export interface IStorage {
@@ -18,23 +19,31 @@ export interface IStorage {
   getReport(id: number): Promise<SecurityReport | undefined>;
   getReportByReportId(reportId: string): Promise<SecurityReport | undefined>;
   getReportsByEmail(email: string): Promise<SecurityReport[]>;
+  
+  // Career application methods
+  createCareerApplication(application: InsertCareerApplication): Promise<CareerApplication>;
+  getCareerApplications(): Promise<CareerApplication[]>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private contacts: Map<number, Contact>;
   private securityReports: Map<number, SecurityReport>;
+  private careerApplications: Map<number, CareerApplication>;
   private userCurrentId: number;
   private contactCurrentId: number;
   private reportCurrentId: number;
+  private applicationCurrentId: number;
 
   constructor() {
     this.users = new Map();
     this.contacts = new Map();
     this.securityReports = new Map();
+    this.careerApplications = new Map();
     this.userCurrentId = 1;
     this.contactCurrentId = 1;
     this.reportCurrentId = 1;
+    this.applicationCurrentId = 1;
   }
 
   // User methods
@@ -59,7 +68,12 @@ export class MemStorage implements IStorage {
   async createContact(insertContact: InsertContact): Promise<Contact> {
     const id = this.contactCurrentId++;
     const createdAt = new Date();
-    const contact: Contact = { ...insertContact, id, createdAt };
+    const contact: Contact = { 
+      ...insertContact, 
+      id, 
+      createdAt,
+      phone: insertContact.phone || null 
+    };
     this.contacts.set(id, contact);
     return contact;
   }
@@ -91,6 +105,26 @@ export class MemStorage implements IStorage {
     return Array.from(this.securityReports.values()).filter(
       (report) => report.email === email
     );
+  }
+  
+  // Career application methods
+  async createCareerApplication(insertApplication: InsertCareerApplication): Promise<CareerApplication> {
+    const id = this.applicationCurrentId++;
+    const createdAt = new Date();
+    const application: CareerApplication = { 
+      ...insertApplication, 
+      id, 
+      createdAt,
+      experience: insertApplication.experience || null,
+      resumePath: insertApplication.resumePath || null,
+      coverLetter: insertApplication.coverLetter || null
+    };
+    this.careerApplications.set(id, application);
+    return application;
+  }
+  
+  async getCareerApplications(): Promise<CareerApplication[]> {
+    return Array.from(this.careerApplications.values());
   }
 }
 
