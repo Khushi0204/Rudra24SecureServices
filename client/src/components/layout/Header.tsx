@@ -9,15 +9,16 @@ import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "Services", href: "#services" },
-  { name: "Security Audit", href: "#audit" },
-  { name: "Contact", href: "#contact" },
+  { name: "nav.home", href: "/" },
+  { name: "nav.services", href: "/services" },
+  { name: "nav.about", href: "/about" },
+  { name: "nav.careers", href: "/careers" },
 ];
 
 export default function Header() {
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
   const closeSheet = () => setIsOpen(false);
 
@@ -25,15 +26,18 @@ export default function Header() {
     <>
       {navItems.map((item) => (
         <li key={item.name}>
-          <a
-            href={item.href}
+          <Link
+            to={item.href}
             className="hover:text-secondary-light transition"
             onClick={isMobile ? closeSheet : undefined}
           >
-            {item.name}
-          </a>
+            {t(item.name)}
+          </Link>
         </li>
       ))}
+      <li>
+        <LanguageSwitcher />
+      </li>
       <li>
         <Button
           variant="secondary"
@@ -42,7 +46,7 @@ export default function Header() {
           asChild
         >
           <a href="#login" onClick={isMobile ? closeSheet : undefined}>
-            Client Login
+            {t('nav.clientLogin')}
           </a>
         </Button>
       </li>

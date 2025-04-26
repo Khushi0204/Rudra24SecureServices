@@ -128,7 +128,8 @@ export default function Careers() {
       formData.append('resume', values.resume[0]);
     }
     
-    submitApplication.mutate(formData);
+    // Use the submitApplication mutation to submit the form data
+  submitApplication.mutate(formData);
   };
 
   return (
