@@ -110,6 +110,7 @@ export default function SecurityAuditForm() {
           setFormData({});
         }} 
         email={formData.email || ""}
+        reportId={reportId}
       />
     </section>
   );

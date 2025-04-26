@@ -82,12 +82,9 @@ export default function Careers() {
   const submitApplication = useMutation({
     mutationFn: async (data: FormData) => {
       return apiRequest({
-        url: "/api/careers/apply",
+        path: "/api/careers/apply",
         method: "POST",
         body: data,
-        headers: {
-          // No need to set Content-Type as it will be set automatically for FormData
-        },
       });
     },
     onSuccess: () => {
@@ -97,7 +94,7 @@ export default function Careers() {
       });
       form.reset();
     },
-    onError: (error) => {
+    onError: (error: any) => {
       toast({
         title: "Error",
         description: "Failed to submit your application. Please try again.",
@@ -105,7 +102,7 @@ export default function Careers() {
       });
       console.error("Error submitting application:", error);
     },
-  });
+  } as any);
 
   const onSubmit = (values: CareerFormValues) => {
     // Create FormData to handle file upload

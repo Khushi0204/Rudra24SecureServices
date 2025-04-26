@@ -102,7 +102,7 @@ export default function ClientFeedbackForm({ reportId }: ClientFeedbackFormProps
       });
       form.reset();
     },
-    onError: (error) => {
+    onError: (error: any) => {
       toast({
         title: "Error submitting feedback",
         description: "There was an error submitting your feedback. Please try again.",
@@ -114,7 +114,7 @@ export default function ClientFeedbackForm({ reportId }: ClientFeedbackFormProps
 
   const onSubmit = (data: FeedbackFormValues) => {
     setSubmitting(true);
-    submitFeedback.mutate(data);
+    submitFeedback.mutate(data as any);
     setSubmitting(false);
   };
 

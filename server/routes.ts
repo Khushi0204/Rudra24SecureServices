@@ -2,7 +2,7 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
-import { insertContactSchema, insertSecurityReportSchema, insertCareerApplicationSchema } from "@shared/schema";
+import { insertContactSchema, insertSecurityReportSchema, insertCareerApplicationSchema, insertClientFeedbackSchema } from "@shared/schema";
 import { generateSecurityAuditReport } from "./services/openai";
 import { sendEmail } from "./services/email";
 import { upload } from "./services/upload";
@@ -206,6 +206,101 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Invalid form data", errors: error.flatten() });
       }
       res.status(500).json({ message: "Failed to submit application" });
+    }
+  });
+
+  // Client feedback submission
+  app.post("/api/submit-feedback", async (req, res) => {
+    try {
+      const feedbackData = insertClientFeedbackSchema.parse(req.body);
+      
+      // Store the feedback in the database
+      const feedback = await storage.createClientFeedback(feedbackData);
+      
+      // If feedback is associated with a report, find the report
+      let reportOwnerEmail = null;
+      let reportOwnerName = null;
+      
+      if (feedbackData.reportId) {
+        const report = await storage.getReportByReportId(feedbackData.reportId);
+        if (report) {
+          reportOwnerEmail = report.email;
+          reportOwnerName = report.fullName;
+        }
+      }
+      
+      // Send email notification about the feedback to company
+      await sendEmail({
+        to: "feedback@rudra24secure.com", // Company's feedback email address
+        subject: `New Client Feedback: ${feedbackData.rating}/5 Stars`,
+        text: `
+          Name: ${feedbackData.name}
+          Email: ${feedbackData.email}
+          Overall Rating: ${feedbackData.rating}/5
+          Service Quality: ${feedbackData.serviceQuality}/5
+          Report Quality: ${feedbackData.reportQuality}/5
+          Report ID: ${feedbackData.reportId || "Not specified"}
+          Comments: ${feedbackData.comment}
+        `,
+        html: `
+          <div>
+            <h2>New Client Feedback</h2>
+            <p><strong>Name:</strong> ${feedbackData.name}</p>
+            <p><strong>Email:</strong> ${feedbackData.email}</p>
+            <p><strong>Overall Rating:</strong> ${feedbackData.rating}/5</p>
+            <p><strong>Service Quality:</strong> ${feedbackData.serviceQuality}/5</p>
+            <p><strong>Report Quality:</strong> ${feedbackData.reportQuality}/5</p>
+            <p><strong>Report ID:</strong> ${feedbackData.reportId || "Not specified"}</p>
+            <p><strong>Comments:</strong></p>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
+              ${feedbackData.comment}
+            </div>
+          </div>
+        `,
+      });
+      
+      // If we found the report owner, thank them for their feedback
+      if (reportOwnerEmail && reportOwnerName) {
+        await sendEmail({
+          to: reportOwnerEmail,
+          subject: "Thank You for Your Feedback - Rudra 24 Secure",
+          text: `
+            Dear ${reportOwnerName},
+            
+            Thank you for providing feedback on our security audit services. We greatly appreciate your input as it helps us improve our services.
+            
+            Your feedback has been recorded and our team will review it shortly. If you have additional comments or questions, please feel free to contact us.
+            
+            Best regards,
+            The Rudra 24 Secure Team
+          `,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <div style="background-color: #0f2b5b; padding: 20px; text-align: center;">
+                <h1 style="color: #f0c14b; margin: 0;">Thank You for Your Feedback</h1>
+              </div>
+              <div style="padding: 20px; border: 1px solid #e0e0e0; border-top: none;">
+                <p>Dear ${reportOwnerName},</p>
+                <p>Thank you for providing feedback on our security audit services. We greatly appreciate your input as it helps us improve our services.</p>
+                <p>Your feedback has been recorded and our team will review it shortly. If you have additional comments or questions, please feel free to contact us.</p>
+                <p>Best regards,<br>The Rudra 24 Secure Team</p>
+              </div>
+              <div style="background-color: #f0f0f0; padding: 15px; text-align: center; font-size: 12px; color: #666;">
+                <p>Rudra 24 Secure Services Private Limited</p>
+                <p>Professional Security & Housekeeping</p>
+              </div>
+            </div>
+          `,
+        });
+      }
+      
+      res.status(201).json({ message: "Feedback submitted successfully" });
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid form data", errors: error.flatten() });
+      }
+      res.status(500).json({ message: "Failed to submit feedback" });
     }
   });
 

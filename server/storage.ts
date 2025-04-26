@@ -24,6 +24,11 @@ export interface IStorage {
   // Career application methods
   createCareerApplication(application: InsertCareerApplication): Promise<CareerApplication>;
   getCareerApplications(): Promise<CareerApplication[]>;
+  
+  // Client feedback methods
+  createClientFeedback(feedback: InsertClientFeedback): Promise<ClientFeedback>;
+  getFeedbackByReportId(reportId: string): Promise<ClientFeedback[]>;
+  getAllFeedback(): Promise<ClientFeedback[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -31,20 +36,24 @@ export class MemStorage implements IStorage {
   private contacts: Map<number, Contact>;
   private securityReports: Map<number, SecurityReport>;
   private careerApplications: Map<number, CareerApplication>;
+  private clientFeedbacks: Map<number, ClientFeedback>;
   private userCurrentId: number;
   private contactCurrentId: number;
   private reportCurrentId: number;
   private applicationCurrentId: number;
+  private feedbackCurrentId: number;
 
   constructor() {
     this.users = new Map();
     this.contacts = new Map();
     this.securityReports = new Map();
     this.careerApplications = new Map();
+    this.clientFeedbacks = new Map();
     this.userCurrentId = 1;
     this.contactCurrentId = 1;
     this.reportCurrentId = 1;
     this.applicationCurrentId = 1;
+    this.feedbackCurrentId = 1;
   }
 
   // User methods
@@ -126,6 +135,30 @@ export class MemStorage implements IStorage {
   
   async getCareerApplications(): Promise<CareerApplication[]> {
     return Array.from(this.careerApplications.values());
+  }
+  
+  // Client feedback methods
+  async createClientFeedback(insertFeedback: InsertClientFeedback): Promise<ClientFeedback> {
+    const id = this.feedbackCurrentId++;
+    const createdAt = new Date();
+    const feedback: ClientFeedback = { 
+      ...insertFeedback, 
+      id, 
+      createdAt,
+      reportId: insertFeedback.reportId || null 
+    };
+    this.clientFeedbacks.set(id, feedback);
+    return feedback;
+  }
+  
+  async getFeedbackByReportId(reportId: string): Promise<ClientFeedback[]> {
+    return Array.from(this.clientFeedbacks.values()).filter(
+      (feedback) => feedback.reportId === reportId
+    );
+  }
+  
+  async getAllFeedback(): Promise<ClientFeedback[]> {
+    return Array.from(this.clientFeedbacks.values());
   }
 }
 

@@ -58,13 +58,6 @@ export default function Header() {
     <header className="bg-primary text-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
         <div className="flex items-center mb-4 md:mb-0">
-          <div className="mr-4">
-            <img 
-              src="/images/rudra-logo.jpg" 
-              alt="Rudra 24 Secure Logo" 
-              className="h-16 w-16 rounded-md border-2 border-yellow-500"
-            />
-          </div>
           <div>
             <img 
               src="/images/rudra-text-logo-new.jpg" 
