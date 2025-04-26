@@ -85,6 +85,7 @@ export default function Careers() {
         path: "/api/careers/apply",
         method: "POST",
         body: data,
+        on401: "throw"
       });
     },
     onSuccess: () => {
@@ -102,7 +103,7 @@ export default function Careers() {
       });
       console.error("Error submitting application:", error);
     },
-  } as any);
+  });
 
   const onSubmit = (values: CareerFormValues) => {
     // Create FormData to handle file upload

@@ -93,6 +93,7 @@ export default function ClientFeedbackForm({ reportId }: ClientFeedbackFormProps
         method: "POST",
         path: "/api/submit-feedback",
         body: data,
+        on401: "throw"
       });
     },
     onSuccess: () => {
