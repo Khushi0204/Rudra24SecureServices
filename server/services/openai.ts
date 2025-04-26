@@ -293,14 +293,14 @@ export async function generateSecurityAuditReport(formData: any): Promise<string
     recommendations = [...baseRecommendations];
     
     // Add specific recommendations based on concerns
-    concernsList.forEach(concern => {
+    concernsList.forEach((concern: string) => {
       if (concernRecommendations[concern]) {
         recommendations = [...recommendations, ...concernRecommendations[concern]];
       }
     });
     
     // Remove duplicates
-    recommendations = [...new Set(recommendations)];
+    recommendations = Array.from(new Set(recommendations));
     
     // Create implementation timeline based on budget and timeline
     let implementationPeriod = '3-6 months';
@@ -398,7 +398,38 @@ ${recommendations.slice(0, 10).map((r, i) => `### ${i+1}. ${r}`).join('\n\n')}
 
 These recommendations have been tailored to your specific situation and prioritized based on risk level, budget considerations (${budget}), and implementation timeline preference (${timeline}).
 
-## 5. IMPLEMENTATION PLAN
+## 5. AUDIT SUGGESTIONS
+
+To further improve your security posture, consider implementing these additional measures specific to your situation:
+
+### Audit Frequency
+Based on your property type and risk level, we recommend conducting security audits every ${propertyTypeKey === 'retail' || propertyTypeKey === 'industrial' ? '3-6 months' : '6-12 months'} to ensure your security measures remain effective.
+
+### Personnel Training
+${vulnerabilities.length > 3 ? 'Due to the number of identified vulnerabilities, we strongly recommend' : 'We recommend'} implementing a comprehensive security awareness program for all staff. Training should cover:
+* Recognizing security threats
+* Proper response to suspicious activities
+* Emergency procedures
+* Proper use of security systems
+
+### Documentation Improvements
+Maintain detailed records of:
+* All security incidents, no matter how minor
+* Regular maintenance of security equipment
+* Staff security training
+* Visitor logs and access records
+
+### Risk Management Plan
+Develop a formal security risk management plan that includes:
+* Regular risk assessments
+* Designated security responsibilities
+* Incident response protocols
+* Business continuity procedures
+
+### Technology Updates
+Schedule regular evaluations of your security technology to ensure it meets current standards and addresses evolving threats.
+
+## 6. IMPLEMENTATION PLAN
 
 To effectively enhance your security posture, we recommend the following phased implementation approach:
 
@@ -419,7 +450,7 @@ ${budget === 'Limited' ?
   'Your flexible budget allows for a comprehensive security implementation. We recommend addressing all identified vulnerabilities within the proposed timeline.'
 }
 
-## 6. CONCLUSION
+## 7. CONCLUSION
 
 This security audit has identified several areas where your property's security can be significantly improved. By implementing the recommendations outlined in this report according to the proposed timeline, you can substantially enhance the safety and security of your property, assets, and occupants.
 
