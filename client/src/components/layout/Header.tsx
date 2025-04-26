@@ -14,6 +14,7 @@ const navItems = [
   { name: "nav.services", href: "/services" },
   { name: "nav.about", href: "/about" },
   { name: "nav.careers", href: "/careers" },
+  { name: "nav.feedback", href: "/feedback" },
 ];
 
 export default function Header() {
@@ -65,7 +66,10 @@ export default function Header() {
               className="h-16 object-contain"
             />
             <p className="text-sm text-yellow-400 mt-1">
-              Professional Security & Housekeeping
+              Precision Protection, Powered by Technology
+            </p>
+            <p className="text-xs text-yellow-300">
+              An ISO 9001:2015 Certified Company
             </p>
           </div>
         </div>
