@@ -1,10 +1,12 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
-import { insertContactSchema, insertSecurityReportSchema } from "@shared/schema";
+import { insertContactSchema, insertSecurityReportSchema, insertCareerApplicationSchema } from "@shared/schema";
 import { generateSecurityAuditReport } from "./services/openai";
 import { sendEmail } from "./services/email";
+import { upload } from "./services/upload";
+import path from "path";
 import { nanoid } from "nanoid";
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -125,6 +127,93 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       res.status(500).json({ message: "Failed to submit contact form" });
     }
+  });
+
+  // Career application form with resume upload
+  app.post("/api/careers/apply", upload.single('resume'), async (req, res) => {
+    try {
+      // Resume file is available as req.file
+      const file = req.file;
+      const formData = req.body;
+      
+      if (!formData.fullName || !formData.email || !formData.phone || !formData.position) {
+        // If there's a file uploaded and validation fails, delete it
+        if (file) {
+          await import('fs').then(fs => fs.promises.unlink(file.path));
+        }
+        return res.status(400).json({ message: "Missing required fields" });
+      }
+      
+      // Create application data object
+      const applicationData = {
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        position: formData.position,
+        experience: formData.experience ? parseInt(formData.experience) : null,
+        resumePath: file ? file.path : null,
+        coverLetter: formData.coverLetter || null
+      };
+      
+      // Validate using Zod schema
+      const validatedData = insertCareerApplicationSchema.parse(applicationData);
+      
+      // Store the application in the database
+      const application = await storage.createCareerApplication(validatedData);
+      
+      // Send email notification about the career application
+      await sendEmail({
+        to: "careers@secureguardservices.com", // Company's careers email address
+        subject: `New Career Application: ${applicationData.position}`,
+        text: `
+          Name: ${applicationData.fullName}
+          Email: ${applicationData.email}
+          Phone: ${applicationData.phone}
+          Position: ${applicationData.position}
+          Experience: ${applicationData.experience || "Not specified"} years
+          Cover Letter: ${applicationData.coverLetter || "Not provided"}
+          Resume: ${file ? "Attached" : "Not provided"}
+        `,
+        html: `
+          <div>
+            <h2>New Career Application</h2>
+            <p><strong>Name:</strong> ${applicationData.fullName}</p>
+            <p><strong>Email:</strong> ${applicationData.email}</p>
+            <p><strong>Phone:</strong> ${applicationData.phone}</p>
+            <p><strong>Position:</strong> ${applicationData.position}</p>
+            <p><strong>Experience:</strong> ${applicationData.experience || "Not specified"} years</p>
+            ${applicationData.coverLetter ? `
+              <p><strong>Cover Letter:</strong></p>
+              <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
+                ${applicationData.coverLetter}
+              </div>
+            ` : ''}
+            <p><strong>Resume:</strong> ${file ? "Attached" : "Not provided"}</p>
+          </div>
+        `,
+      });
+      
+      res.status(201).json({ message: "Application submitted successfully" });
+    } catch (error) {
+      console.error("Error submitting career application:", error);
+      
+      // Clean up uploaded file if there was an error
+      if (req.file && req.file.path) {
+        await import('fs').then(fs => fs.promises.unlink(req.file!.path).catch(() => {}));
+      }
+      
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid form data", errors: error.flatten() });
+      }
+      res.status(500).json({ message: "Failed to submit application" });
+    }
+  });
+
+  // Serve uploaded files
+  app.get("/uploads/:filename", (req, res) => {
+    const filename = req.params.filename;
+    const filePath = path.join(process.cwd(), 'uploads', filename);
+    res.sendFile(filePath);
   });
 
   const httpServer = createServer(app);
