@@ -1,411 +1,301 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Image, Info, Users, Shield, User, Upload, Plus } from 'lucide-react';
+import { UploadCloud } from 'lucide-react';
 
-// Gallery Images
+// Simple Gallery Images Array
 const galleryImages = [
-  // Logo Category
   {
-    category: "logo",
-    src: "/images/rudra-logo.png",
-    alt: "Rudra 24 Secure Logo",
-    title: "Company Logo",
-    description: "Official Rudra 24 Secure logo used across branding materials"
-  },
-  {
-    category: "logo",
-    src: "/images/rudra-logo-gold.jpg",
-    alt: "Rudra 24 Golden Logo",
-    title: "Golden Logo Version",
-    description: "Gold variant of the company logo used for special materials"
-  },
-  {
-    category: "logo",
-    src: "/images/rudra-text-logo-new.jpg",
-    alt: "Rudra 24 Text Logo",
-    title: "Text Logo",
-    description: "Text-based logo with the company name and branding"
-  },
-  
-  // Operations Category
-  {
-    category: "operations",
+    id: 1,
     src: "/images/operations/security-1.jpg",
-    alt: "Security Guard Services",
     title: "Security Operations",
-    description: "Professional security guards in action protecting assets"
+    category: "operations"
   },
   {
-    category: "operations",
+    id: 2,
     src: "/images/operations/security-2.jpg",
-    alt: "Corporate Security",
     title: "Corporate Security",
-    description: "Specialized security services for corporate environments"
+    category: "operations"
   },
   {
-    category: "operations",
+    id: 3,
     src: "/images/operations/housekeeping.jpg",
-    alt: "Housekeeping Services",
     title: "Housekeeping Services",
-    description: "Professional housekeeping and cleaning services"
+    category: "operations"
   },
   {
-    category: "operations",
+    id: 4,
     src: "/images/operations/facility.jpg",
-    alt: "Facility Management",
     title: "Facility Management",
-    description: "Comprehensive facility management services"
+    category: "operations"
   },
-  
-  // Team Category
   {
-    category: "team",
+    id: 5,
     src: "/images/team/team-1.jpg",
-    alt: "Security Team Members",
-    title: "Our Security Team",
-    description: "The dedicated security professionals at Rudra 24 Secure"
+    title: "Security Team",
+    category: "team"
   },
   {
-    category: "team",
+    id: 6,
     src: "/images/team/training.jpg",
-    alt: "Training Session",
     title: "Training Programs",
-    description: "Professional training sessions for security personnel"
+    category: "team"
   },
   {
-    category: "team",
+    id: 7,
     src: "/images/team/housekeeping-team.png",
-    alt: "Housekeeping Team",
     title: "Housekeeping Staff",
-    description: "Our professional housekeeping team in uniform"
+    category: "team"
+  },
+  {
+    id: 8,
+    src: "/images/rudra-logo.png",
+    title: "Company Logo",
+    category: "logo"
+  },
+  {
+    id: 9,
+    src: "/images/rudra-logo-gold.jpg",
+    title: "Golden Logo",
+    category: "logo"
   }
 ];
 
-// Categories for filtering
+// Simple Category Filter
 const categories = [
-  { id: "all", label: "All Images", icon: <Image className="w-4 h-4 mr-2" /> },
-  { id: "logo", label: "Company Logos", icon: <Shield className="w-4 h-4 mr-2" /> },
-  { id: "operations", label: "Operations", icon: <Info className="w-4 h-4 mr-2" /> },
-  { id: "team", label: "Our Team", icon: <Users className="w-4 h-4 mr-2" /> }
+  { id: "all", name: "All Images" },
+  { id: "logo", name: "Logos" },
+  { id: "operations", name: "Operations" },
+  { id: "team", name: "Team" }
 ];
-
-interface FilePreview {
-  file: File;
-  preview: string;
-}
 
 export default function Gallery() {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("all");
-  const [filteredImages, setFilteredImages] = useState(galleryImages);
+  const [displayedImages, setDisplayedImages] = useState(galleryImages);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [uploadModalOpen, setUploadModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("logo");
-  const [selectedFiles, setSelectedFiles] = useState<FilePreview[]>([]);
+  const [showUploadForm, setShowUploadForm] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [uploadCategory, setUploadCategory] = useState("operations");
   
-  // Update document title on mount
-  useEffect(() => {
-    document.title = "Gallery | Rudra 24 Secure";
-  }, []);
-  
-  // Filter images when category changes
+  // Update images when category changes
   useEffect(() => {
     if (activeCategory === "all") {
-      setFilteredImages(galleryImages);
+      setDisplayedImages(galleryImages);
     } else {
-      setFilteredImages(galleryImages.filter(img => img.category === activeCategory));
+      setDisplayedImages(galleryImages.filter(img => img.category === activeCategory));
     }
   }, [activeCategory]);
   
-  // Handle image click to show in full screen modal
+  // Handle image click
   const handleImageClick = (src: string) => {
     setSelectedImage(src);
   };
   
-  // Close modal
-  const closeModal = () => {
+  // Close image preview
+  const closePreview = () => {
     setSelectedImage(null);
   };
   
-  // Toggle upload modal
-  const toggleUploadModal = () => {
-    setUploadModalOpen(!uploadModalOpen);
-    // Clear selected files when closing the modal
-    if (!uploadModalOpen === false) {
+  // Toggle upload form
+  const toggleUploadForm = () => {
+    setShowUploadForm(!showUploadForm);
+    // Clear selected files when closing
+    if (showUploadForm) {
       setSelectedFiles([]);
     }
   };
   
-  // Handle category selection for upload
-  const handleCategorySelect = (categoryId: string) => {
-    setSelectedCategory(categoryId);
-  };
-  
   // Handle file selection
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    
-    const fileArray = Array.from(e.target.files);
-    const newFiles: FilePreview[] = fileArray.map(file => ({
-      file,
-      preview: URL.createObjectURL(file)
-    }));
-    
-    setSelectedFiles(prevFiles => [...prevFiles, ...newFiles]);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const newFiles = Array.from(event.target.files);
+      setSelectedFiles(newFiles);
+    }
   };
   
-  // Remove a file from selection
-  const removeFile = (index: number) => {
-    const updatedFiles = [...selectedFiles];
-    // Revoke the object URL to avoid memory leaks
-    URL.revokeObjectURL(updatedFiles[index].preview);
-    updatedFiles.splice(index, 1);
-    setSelectedFiles(updatedFiles);
+  // Handle upload submit
+  const handleUpload = () => {
+    if (selectedFiles.length === 0) return;
+    
+    // This would typically send files to server
+    console.log(`Uploading ${selectedFiles.length} files to category: ${uploadCategory}`);
+    
+    // In a real application, we would make an API call here
+    // For now, just simulate successful upload
+    alert(`${selectedFiles.length} images would be uploaded to the ${uploadCategory} category!`);
+    
+    // Reset form
+    setSelectedFiles([]);
+    setShowUploadForm(false);
   };
   
   return (
-    <div className="py-16">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-primary mb-4">Company Gallery</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            View images of our security operations, team members, and company branding
-          </p>
-        </div>
-        
-        {/* Admin Controls (simplified for demonstration) */}
-        <div className="max-w-3xl mx-auto mb-8">
-          <Button 
-            variant="default" 
-            className="bg-blue-700 hover:bg-blue-800 flex items-center"
-            onClick={toggleUploadModal}
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add New Image
-          </Button>
-        </div>
-        
-        {/* Category Tabs */}
-        <div className="mb-10">
-          <Tabs defaultValue="all" className="max-w-6xl mx-auto" onValueChange={setActiveCategory}>
-            <TabsList className="grid grid-cols-4 mb-8">
-              {categories.map(category => (
-                <TabsTrigger key={category.id} value={category.id} className="flex items-center justify-center">
-                  {category.icon}
-                  <span className="hidden sm:inline">{category.label}</span>
-                </TabsTrigger>
+    <div className="container mx-auto px-4 py-12">
+      <div className="text-center mb-6">
+        <h1 className="text-3xl font-bold text-blue-800">Company Gallery</h1>
+        <p className="mt-2 text-gray-600">Browse through images of our operations, team and branding</p>
+      </div>
+      
+      {/* Upload Button */}
+      <div className="flex justify-center mb-6">
+        <Button 
+          className="bg-blue-700 hover:bg-blue-800 text-white flex items-center gap-2"
+          onClick={toggleUploadForm}
+        >
+          <UploadCloud size={18} />
+          {showUploadForm ? 'Cancel Upload' : 'Add Images'}
+        </Button>
+      </div>
+      
+      {/* Simple Upload Form */}
+      {showUploadForm && (
+        <div className="max-w-lg mx-auto mb-8 p-6 bg-white rounded-lg shadow-md">
+          <h2 className="text-xl font-bold text-blue-800 mb-4">Upload New Images</h2>
+          
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Select Category
+            </label>
+            <select 
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              value={uploadCategory}
+              onChange={(e) => setUploadCategory(e.target.value)}
+            >
+              {categories.slice(1).map(cat => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
               ))}
-            </TabsList>
-            
-            {categories.map(category => (
-              <TabsContent key={category.id} value={category.id} className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredImages.map((image, index) => (
-                    <Card 
-                      key={index} 
-                      className="overflow-hidden hover:shadow-lg transition-shadow border border-gray-200"
-                    >
-                      <div 
-                        className="h-64 overflow-hidden cursor-pointer"
-                        onClick={() => handleImageClick(image.src)}
-                      >
-                        <img 
-                          src={image.src} 
-                          alt={image.alt} 
-                          className="w-full h-full object-cover object-center"
-                          onError={(e) => {
-                            // If image fails to load, show a placeholder
-                            e.currentTarget.src = "https://via.placeholder.com/400x300?text=Image+Not+Available";
-                          }}
-                        />
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-medium text-blue-800 text-lg mb-1">{image.title}</h3>
-                        <p className="text-sm text-gray-600 mb-2">{image.description}</p>
-                        <div className="flex justify-between items-center mt-2">
-                          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                            {image.category}
-                          </span>
-                          <Button 
-                            variant="ghost" 
-                            size="sm" 
-                            className="text-blue-600 hover:text-blue-800 p-0"
-                            onClick={() => handleImageClick(image.src)}
-                          >
-                            View
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+            </select>
+          </div>
+          
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Select Images (Multiple)
+            </label>
+            <div 
+              className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <input 
+                type="file" 
+                multiple 
+                className="hidden" 
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+              />
+              <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />
+              <p className="mt-2 text-sm text-gray-500">Click to select or drag images here</p>
+              <p className="text-xs text-gray-400 mt-1">JPG, PNG, GIF up to 10MB</p>
+            </div>
+          </div>
+          
+          {selectedFiles.length > 0 && (
+            <div className="mb-4">
+              <p className="text-sm font-medium text-gray-700 mb-2">
+                Selected {selectedFiles.length} file(s):
+              </p>
+              <ul className="text-sm text-gray-500 list-disc list-inside">
+                {selectedFiles.map((file, index) => (
+                  <li key={index} className="truncate">
+                    {file.name} ({Math.round(file.size / 1024)} KB)
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          
+          <div className="flex justify-end">
+            <Button 
+              className="bg-blue-700 hover:bg-blue-800"
+              onClick={handleUpload}
+              disabled={selectedFiles.length === 0}
+            >
+              Upload Images
+            </Button>
+          </div>
         </div>
-        
-        {/* Full Image Modal */}
-        {selectedImage && (
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
-            onClick={closeModal}
+      )}
+      
+      {/* Simple Category Filters */}
+      <div className="flex justify-center flex-wrap gap-2 mb-8">
+        {categories.map(category => (
+          <button
+            key={category.id}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
+              ${activeCategory === category.id 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+              }`}
+            onClick={() => setActiveCategory(category.id)}
           >
-            <div className="max-w-6xl max-h-screen">
-              <button 
-                className="absolute top-4 right-4 text-white bg-blue-800 rounded-full w-10 h-10 flex items-center justify-center"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  closeModal();
-                }}
-              >
-                ✕
-              </button>
+            {category.name}
+          </button>
+        ))}
+      </div>
+      
+      {/* Image Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {displayedImages.map((image) => (
+          <Card 
+            key={image.id}
+            className="overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => handleImageClick(image.src)}
+          >
+            <div className="h-48 overflow-hidden">
               <img 
-                src={selectedImage} 
-                alt="Gallery image" 
-                className="max-w-full max-h-[90vh] object-contain"
+                src={image.src} 
+                alt={image.title} 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = "https://via.placeholder.com/300x200?text=Image+Not+Available";
+                }}
               />
             </div>
-          </div>
-        )}
-        
-        {/* Image Upload Modal (simplified) */}
-        {uploadModalOpen && (
-          <div 
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
-            onClick={toggleUploadModal}
-          >
-            <div 
-              className="bg-white rounded-lg p-6 w-full max-w-lg"
-              onClick={(e) => e.stopPropagation()}
+            <CardContent className="p-3">
+              <h3 className="font-medium text-blue-700">{image.title}</h3>
+              <p className="text-xs text-gray-500 mt-1">{image.category}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+      
+      {/* Image Preview Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
+          onClick={closePreview}
+        >
+          <div className="relative max-w-4xl max-h-full">
+            <button 
+              className="absolute -top-10 right-0 text-white text-xl"
+              onClick={closePreview}
             >
-              <h2 className="text-xl font-bold text-blue-800 mb-4">Upload Images</h2>
-              
-              <form className="space-y-4">
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Select Category
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {categories.slice(1).map(cat => (
-                      <div 
-                        key={cat.id}
-                        className={`border rounded-md p-2 cursor-pointer flex flex-col items-center justify-center hover:bg-blue-50 transition-colors 
-                          ${selectedCategory === cat.id ? 'bg-blue-100 border-blue-500 border-2' : ''}`}
-                        onClick={() => handleCategorySelect(cat.id)}
-                      >
-                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-1">
-                          {cat.icon}
-                        </div>
-                        <span className="text-sm">{cat.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Upload Multiple Images
-                  </label>
-                  <div 
-                    className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors"
-                  >
-                    <input 
-                      type="file" 
-                      multiple 
-                      className="hidden" 
-                      id="gallery-image-upload" 
-                      accept="image/*"
-                      onChange={handleFileSelect}
-                    />
-                    <label htmlFor="gallery-image-upload" className="cursor-pointer block">
-                      <Upload className="mx-auto h-12 w-12 text-blue-500 mb-3" />
-                      <p className="text-lg font-medium text-gray-700">Drop files here or click to upload</p>
-                      <p className="mt-1 text-sm text-gray-500">You can select multiple images at once</p>
-                      <p className="mt-4 text-xs text-gray-400">Supported formats: JPG, PNG, GIF</p>
-                    </label>
-                  </div>
-                </div>
-                
-                {/* Selected Files Preview */}
-                <div className="mb-4">
-                  <h3 className="text-sm font-bold text-gray-700 mb-2">
-                    Selected Files: {selectedFiles.length > 0 ? `(${selectedFiles.length})` : ''}
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {selectedFiles.length === 0 ? (
-                      <div className="w-16 h-16 bg-gray-100 rounded-md flex items-center justify-center text-xs text-gray-500">
-                        No files
-                      </div>
-                    ) : (
-                      selectedFiles.map((file, index) => (
-                        <div key={index} className="relative w-20 h-20 group">
-                          <img 
-                            src={file.preview} 
-                            alt={`Preview ${index}`}
-                            className="w-full h-full object-cover rounded-md border border-gray-300"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => removeFile(index)}
-                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            ✕
-                          </button>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                  {selectedFiles.length > 0 && (
-                    <div className="mt-2 text-right">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedFiles([])}
-                        className="text-sm text-red-600 hover:text-red-800"
-                      >
-                        Clear All
-                      </button>
-                    </div>
-                  )}
-                </div>
-                
-                <div className="flex justify-end space-x-3">
-                  <Button 
-                    variant="outline" 
-                    onClick={toggleUploadModal}
-                  >
-                    Cancel
-                  </Button>
-                  <Button 
-                    className="bg-blue-700 hover:bg-blue-800"
-                    type="button"
-                  >
-                    Upload All Images
-                  </Button>
-                </div>
-              </form>
-            </div>
+              ✕ Close
+            </button>
+            <img 
+              src={selectedImage} 
+              alt="Preview" 
+              className="max-w-full max-h-[85vh] object-contain"
+            />
           </div>
-        )}
-        
-        {/* Image Usage Policy */}
-        <div className="mt-16 bg-blue-50 rounded-lg p-6 max-w-3xl mx-auto">
-          <h2 className="text-xl font-bold text-blue-800 mb-3">Image Usage Policy</h2>
-          <p className="text-gray-700 mb-2">
-            All images in this gallery are the property of Rudra 24 Secure Services Pvt. Ltd. 
-            These images are protected by copyright law and may not be reproduced, distributed, 
-            or used in any form without explicit written permission.
-          </p>
-          <p className="text-gray-700">
-            For permission to use these images, please contact our office at{" "}
-            <a href="mailto:Rudra24securegroup@gmail.com" className="text-blue-700 hover:underline">
-              Rudra24securegroup@gmail.com
-            </a>
-          </p>
         </div>
+      )}
+      
+      {/* Simple Image Usage Policy */}
+      <div className="mt-12 bg-blue-50 p-4 rounded-lg max-w-3xl mx-auto">
+        <h2 className="text-lg font-semibold text-blue-800 mb-2">Image Usage Policy</h2>
+        <p className="text-sm text-gray-700">
+          All images are the property of Rudra 24 Secure Services Pvt. Ltd.
+          For permission to use these images, please contact 
+          <a href="mailto:Rudra24securegroup@gmail.com" className="text-blue-600 ml-1 hover:underline">
+            Rudra24securegroup@gmail.com
+          </a>
+        </p>
       </div>
     </div>
   );
