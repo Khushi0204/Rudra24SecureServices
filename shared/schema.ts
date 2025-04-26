@@ -87,3 +87,29 @@ export const insertCareerApplicationSchema = createInsertSchema(careerApplicatio
 
 export type InsertCareerApplication = z.infer<typeof insertCareerApplicationSchema>;
 export type CareerApplication = typeof careerApplications.$inferSelect;
+
+// Client feedback schema
+export const clientFeedback = pgTable("client_feedback", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  rating: text("rating").notNull(),
+  serviceQuality: text("service_quality").notNull(),
+  reportQuality: text("report_quality").notNull(),
+  comment: text("comment").notNull(),
+  reportId: text("report_id"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertClientFeedbackSchema = createInsertSchema(clientFeedback).pick({
+  name: true,
+  email: true,
+  rating: true,
+  serviceQuality: true,
+  reportQuality: true,
+  comment: true,
+  reportId: true,
+});
+
+export type InsertClientFeedback = z.infer<typeof insertClientFeedbackSchema>;
+export type ClientFeedback = typeof clientFeedback.$inferSelect;

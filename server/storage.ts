@@ -2,6 +2,7 @@ import { contacts, type Contact, type InsertContact } from "@shared/schema";
 import { users, type User, type InsertUser } from "@shared/schema";
 import { securityReports, type SecurityReport, type InsertSecurityReport } from "@shared/schema";
 import { careerApplications, type CareerApplication, type InsertCareerApplication } from "@shared/schema";
+import { clientFeedback, type ClientFeedback, type InsertClientFeedback } from "@shared/schema";
 
 // Interface for storage operations
 export interface IStorage {
