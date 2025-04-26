@@ -133,229 +133,223 @@ export default function Careers() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      
-      <main className="flex-grow">
-        <section className="bg-gradient-to-b from-blue-50 to-white py-16">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold text-blue-800 mb-4">{t('careers.joinOurTeam')}</h1>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                {t('careers.joinDescription')}
-              </p>
-            </div>
+    <div>
+      <section className="bg-gradient-to-b from-blue-50 to-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-blue-800 mb-4">{t('careers.joinOurTeam')}</h1>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              {t('careers.joinDescription')}
+            </p>
           </div>
-        </section>
-        
-        <section className="py-16 container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-3xl font-bold text-blue-800 mb-6">{t('careers.whyJoinUs')}</h2>
-              
-              <div className="space-y-6">
-                <div className="p-6 bg-white rounded-lg shadow-md border border-gray-100">
-                  <h3 className="text-xl font-bold text-blue-700 mb-3">{t('careers.benefits.training.title')}</h3>
-                  <p className="text-gray-700">{t('careers.benefits.training.description')}</p>
-                </div>
-                
-                <div className="p-6 bg-white rounded-lg shadow-md border border-gray-100">
-                  <h3 className="text-xl font-bold text-blue-700 mb-3">{t('careers.benefits.growth.title')}</h3>
-                  <p className="text-gray-700">{t('careers.benefits.growth.description')}</p>
-                </div>
-                
-                <div className="p-6 bg-white rounded-lg shadow-md border border-gray-100">
-                  <h3 className="text-xl font-bold text-blue-700 mb-3">{t('careers.benefits.compensation.title')}</h3>
-                  <p className="text-gray-700">{t('careers.benefits.compensation.description')}</p>
-                </div>
-              </div>
-            </div>
+        </div>
+      </section>
+      
+      <section className="py-16 container mx-auto px-4">
+        <div className="grid md:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-3xl font-bold text-blue-800 mb-6">{t('careers.whyJoinUs')}</h2>
             
-            <div>
-              <h2 className="text-3xl font-bold text-blue-800 mb-6">{t('careers.applicationForm')}</h2>
+            <div className="space-y-6">
+              <div className="p-6 bg-white rounded-lg shadow-md border border-gray-100">
+                <h3 className="text-xl font-bold text-blue-700 mb-3">{t('careers.benefits.training.title')}</h3>
+                <p className="text-gray-700">{t('careers.benefits.training.description')}</p>
+              </div>
               
-              <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <FormField
-                      control={form.control}
-                      name="fullName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t('careers.form.fullName')}</FormLabel>
-                          <FormControl>
-                            <Input placeholder={t('careers.form.fullNamePlaceholder')} {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('careers.form.email')}</FormLabel>
-                            <FormControl>
-                              <Input placeholder={t('careers.form.emailPlaceholder')} {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name="phone"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('careers.form.phone')}</FormLabel>
-                            <FormControl>
-                              <Input placeholder={t('careers.form.phonePlaceholder')} {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="position"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('careers.form.position')}</FormLabel>
-                            <Select 
-                              onValueChange={field.onChange} 
-                              defaultValue={field.value}
-                            >
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder={t('careers.form.positionPlaceholder')} />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {positions.map(position => (
-                                  <SelectItem key={position.id} value={position.title}>
-                                    {position.title}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name="experience"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{t('careers.form.experience')}</FormLabel>
-                            <Select 
-                              onValueChange={field.onChange} 
-                              defaultValue={field.value}
-                            >
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder={t('careers.form.experiencePlaceholder')} />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {experienceOptions.map(option => (
-                                  <SelectItem key={option.value} value={option.value}>
-                                    {option.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    
-                    <FormField
-                      control={form.control}
-                      name="coverLetter"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t('careers.form.coverLetter')}</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder={t('careers.form.coverLetterPlaceholder')}
-                              className="resize-none h-32"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            {t('careers.form.coverLetterDescription')}
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="resume"
-                      render={({ field: { value, onChange, ...fieldProps } }) => (
-                        <FormItem>
-                          <FormLabel>{t('careers.form.resume')}</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="file"
-                              accept=".pdf,.doc,.docx,.txt,.rtf"
-                              onChange={(e) => {
-                                onChange(e.target.files);
-                              }}
-                              {...fieldProps}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            {t('careers.form.resumeDescription')}
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <Button 
-                      type="submit" 
-                      className="w-full bg-blue-700 hover:bg-blue-800"
-                      disabled={submitApplication.isPending}
-                    >
-                      {submitApplication.isPending ? t('careers.form.submitting') : t('careers.form.submit')}
-                    </Button>
-                  </form>
-                </Form>
+              <div className="p-6 bg-white rounded-lg shadow-md border border-gray-100">
+                <h3 className="text-xl font-bold text-blue-700 mb-3">{t('careers.benefits.growth.title')}</h3>
+                <p className="text-gray-700">{t('careers.benefits.growth.description')}</p>
+              </div>
+              
+              <div className="p-6 bg-white rounded-lg shadow-md border border-gray-100">
+                <h3 className="text-xl font-bold text-blue-700 mb-3">{t('careers.benefits.compensation.title')}</h3>
+                <p className="text-gray-700">{t('careers.benefits.compensation.description')}</p>
               </div>
             </div>
           </div>
-        </section>
-        
-        <section className="bg-blue-50 py-16">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-blue-800 mb-6">{t('careers.openPositions')}</h2>
+          
+          <div>
+            <h2 className="text-3xl font-bold text-blue-800 mb-6">{t('careers.applicationForm')}</h2>
             
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {positions.map(position => (
-                <div key={position.id} className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
-                  <h3 className="text-xl font-bold text-blue-700 mb-3">{position.title}</h3>
-                  <p className="text-gray-700 mb-4">{t(`careers.positions.${position.id}.description`)}</p>
-                  <p className="text-blue-600 font-medium">{t(`careers.positions.${position.id}.requirements`)}</p>
-                </div>
-              ))}
+            <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="fullName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('careers.form.fullName')}</FormLabel>
+                        <FormControl>
+                          <Input placeholder={t('careers.form.fullNamePlaceholder')} {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('careers.form.email')}</FormLabel>
+                          <FormControl>
+                            <Input placeholder={t('careers.form.emailPlaceholder')} {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('careers.form.phone')}</FormLabel>
+                          <FormControl>
+                            <Input placeholder={t('careers.form.phonePlaceholder')} {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="position"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('careers.form.position')}</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder={t('careers.form.positionPlaceholder')} />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {positions.map(position => (
+                                <SelectItem key={position.id} value={position.title}>
+                                  {position.title}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="experience"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t('careers.form.experience')}</FormLabel>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder={t('careers.form.experiencePlaceholder')} />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {experienceOptions.map(option => (
+                                <SelectItem key={option.value} value={option.value}>
+                                  {option.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
+                  <FormField
+                    control={form.control}
+                    name="coverLetter"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('careers.form.coverLetter')}</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder={t('careers.form.coverLetterPlaceholder')}
+                            className="resize-none h-32"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t('careers.form.coverLetterDescription')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="resume"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                      <FormItem>
+                        <FormLabel>{t('careers.form.resume')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="file"
+                            accept=".pdf,.doc,.docx,.txt,.rtf"
+                            onChange={(e) => {
+                              onChange(e.target.files);
+                            }}
+                            {...fieldProps}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t('careers.form.resumeDescription')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-blue-700 hover:bg-blue-800"
+                    disabled={submitApplication.isPending}
+                  >
+                    {submitApplication.isPending ? t('careers.form.submitting') : t('careers.form.submit')}
+                  </Button>
+                </form>
+              </Form>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
       
-      <Footer />
+      <section className="bg-blue-50 py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-blue-800 mb-6">{t('careers.openPositions')}</h2>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {positions.map(position => (
+              <div key={position.id} className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+                <h3 className="text-xl font-bold text-blue-700 mb-3">{position.title}</h3>
+                <p className="text-gray-700 mb-4">{t(`careers.positions.${position.id}.description`)}</p>
+                <p className="text-blue-600 font-medium">{t(`careers.positions.${position.id}.requirements`)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
