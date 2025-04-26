@@ -58,11 +58,12 @@ export default function Header() {
     <header className="bg-primary text-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
         <div className="flex items-center mb-4 md:mb-0">
-          <div className="mr-3">
-            <Avatar className="h-14 w-14 border-2 border-yellow-500">
-              <AvatarImage src="/images/rudra-logo.jpg" alt="Rudra 24 Secure Logo" />
-              <AvatarFallback className="bg-blue-900 text-yellow-500">R24</AvatarFallback>
-            </Avatar>
+          <div className="mr-4">
+            <img 
+              src="/images/rudra-logo.jpg" 
+              alt="Rudra 24 Secure Logo" 
+              className="h-16 w-16 rounded-md border-2 border-yellow-500"
+            />
           </div>
           <div>
             <h1 className="text-xl font-bold">Rudra 24 Secure</h1>
