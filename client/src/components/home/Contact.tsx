@@ -92,11 +92,21 @@ export default function Contact() {
                 <div className="flex items-start">
                   <MapPin className="text-secondary mr-3 h-5 w-5 mt-1" />
                   <div>
-                    <h4 className="font-medium">Address</h4>
+                    <h4 className="font-medium">Head Office</h4>
                     <p className="text-gray-300">
-                      1234 Security Avenue, Suite 500
+                      Rudra House Plot No.72, Street No.2, Sunita Vihar
                       <br />
-                      New York, NY 10001
+                      (Near Indira Puri 2 No) Loni, Ghaziabad (UP) 201102
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <MapPin className="text-secondary mr-3 h-5 w-5 mt-1" />
+                  <div>
+                    <h4 className="font-medium">Branch Offices</h4>
+                    <p className="text-gray-300">
+                      Delhi, Noida, Ghaziabad, Faridabad, Gurugram, Sonipat, etc.
                     </p>
                   </div>
                 </div>
@@ -105,7 +115,11 @@ export default function Contact() {
                   <Phone className="text-secondary mr-3 h-5 w-5 mt-1" />
                   <div>
                     <h4 className="font-medium">Phone</h4>
-                    <p className="text-gray-300">(555) 123-4567</p>
+                    <p className="text-gray-300">
+                      9625785431, 9625729177, 9625724855
+                      <br />
+                      Branch: 8860430007, 9999881949
+                    </p>
                   </div>
                 </div>
 
@@ -113,7 +127,15 @@ export default function Contact() {
                   <Mail className="text-secondary mr-3 h-5 w-5 mt-1" />
                   <div>
                     <h4 className="font-medium">Email</h4>
-                    <p className="text-gray-300">info@secureguardservices.com</p>
+                    <p className="text-gray-300">
+                      <a href="mailto:Rudra24securegroup@gmail.com" className="hover:text-yellow-300">
+                        Rudra24securegroup@gmail.com
+                      </a>
+                      <br />
+                      <a href="mailto:rudra24securepl@gmail.com" className="hover:text-yellow-300">
+                        rudra24securepl@gmail.com
+                      </a>
+                    </p>
                   </div>
                 </div>
 
@@ -122,9 +144,9 @@ export default function Contact() {
                   <div>
                     <h4 className="font-medium">Hours</h4>
                     <p className="text-gray-300">
-                      Monday - Friday: 8:00 AM - 6:00 PM
+                      Monday - Saturday: 9:00 AM - 6:00 PM
                       <br />
-                      24/7 Emergency Services Available
+                      24/7 Security Services Available
                     </p>
                   </div>
                 </div>
