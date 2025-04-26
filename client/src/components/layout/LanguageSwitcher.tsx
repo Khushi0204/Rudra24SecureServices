@@ -1,7 +1,13 @@
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from '@/components/ui/dropdown-menu';
 import { Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Language {
   code: string;
@@ -11,47 +17,44 @@ interface Language {
 
 const languages: Language[] = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' }
 ];
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
+  const [open, setOpen] = useState(false);
   
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
+    setOpen(false);
   };
   
-  const getCurrentLanguage = () => {
-    return languages.find(lang => lang.code === i18n.language) || languages[0];
-  };
+  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
   
   return (
-    <Popover>
-      <PopoverTrigger asChild>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger asChild>
         <Button 
           variant="ghost" 
-          size="icon" 
-          className="rounded-full w-9 h-9 flex items-center justify-center"
+          size="sm" 
+          className="flex items-center gap-2 text-white hover:text-secondary-light transition"
         >
-          <Globe className="h-5 w-5" />
+          <Globe className="h-4 w-4" />
+          <span>{currentLanguage.flag}</span>
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-48 p-0">
-        <div className="py-2">
-          {languages.map((language) => (
-            <button
-              key={language.code}
-              className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-muted ${
-                i18n.language === language.code ? 'bg-muted font-medium' : ''
-              }`}
-              onClick={() => changeLanguage(language.code)}
-            >
-              <span className="text-base">{language.flag}</span>
-              <span>{language.name}</span>
-            </button>
-          ))}
-        </div>
-      </PopoverContent>
-    </Popover>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {languages.map((language) => (
+          <DropdownMenuItem 
+            key={language.code}
+            onClick={() => changeLanguage(language.code)}
+            className="cursor-pointer flex items-center gap-2"
+          >
+            <span>{language.flag}</span>
+            <span>{language.name}</span>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
