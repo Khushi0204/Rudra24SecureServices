@@ -74,6 +74,13 @@ const galleryImages = [
     alt: "Training Session",
     title: "Training Programs",
     description: "Professional training sessions for security personnel"
+  },
+  {
+    category: "team",
+    src: "/images/team/housekeeping-team.png",
+    alt: "Housekeeping Team",
+    title: "Housekeeping Staff",
+    description: "Our professional housekeeping team in uniform"
   }
 ];
 
@@ -85,12 +92,19 @@ const categories = [
   { id: "team", label: "Our Team", icon: <Users className="w-4 h-4 mr-2" /> }
 ];
 
+interface FilePreview {
+  file: File;
+  preview: string;
+}
+
 export default function Gallery() {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("all");
   const [filteredImages, setFilteredImages] = useState(galleryImages);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("logo");
+  const [selectedFiles, setSelectedFiles] = useState<FilePreview[]>([]);
   
   // Update document title on mount
   useEffect(() => {
@@ -119,6 +133,37 @@ export default function Gallery() {
   // Toggle upload modal
   const toggleUploadModal = () => {
     setUploadModalOpen(!uploadModalOpen);
+    // Clear selected files when closing the modal
+    if (!uploadModalOpen === false) {
+      setSelectedFiles([]);
+    }
+  };
+  
+  // Handle category selection for upload
+  const handleCategorySelect = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+  };
+  
+  // Handle file selection
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    const fileArray = Array.from(e.target.files);
+    const newFiles: FilePreview[] = fileArray.map(file => ({
+      file,
+      preview: URL.createObjectURL(file)
+    }));
+    
+    setSelectedFiles(prevFiles => [...prevFiles, ...newFiles]);
+  };
+  
+  // Remove a file from selection
+  const removeFile = (index: number) => {
+    const updatedFiles = [...selectedFiles];
+    // Revoke the object URL to avoid memory leaks
+    URL.revokeObjectURL(updatedFiles[index].preview);
+    updatedFiles.splice(index, 1);
+    setSelectedFiles(updatedFiles);
   };
   
   return (
@@ -234,68 +279,114 @@ export default function Gallery() {
             onClick={toggleUploadModal}
           >
             <div 
-              className="bg-white rounded-lg p-6 w-full max-w-md"
+              className="bg-white rounded-lg p-6 w-full max-w-lg"
               onClick={(e) => e.stopPropagation()}
             >
-              <h2 className="text-xl font-bold text-blue-800 mb-4">Add New Image</h2>
+              <h2 className="text-xl font-bold text-blue-800 mb-4">Upload Images</h2>
               
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Image Title
-                </label>
-                <input 
-                  type="text" 
-                  className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter image title"
-                />
-              </div>
-              
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Description
-                </label>
-                <textarea 
-                  className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 h-20"
-                  placeholder="Enter image description"
-                ></textarea>
-              </div>
-              
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Category
-                </label>
-                <select className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <option value="">Select category</option>
-                  <option value="logo">Logo</option>
-                  <option value="operations">Operations</option>
-                  <option value="team">Team</option>
-                </select>
-              </div>
-              
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2">
-                  Image File
-                </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:bg-gray-50">
-                  <Upload className="mx-auto h-8 w-8 text-gray-400" />
-                  <p className="mt-2 text-sm text-gray-500">Click to upload or drag and drop</p>
-                  <p className="text-xs text-gray-400">PNG, JPG, GIF up to 10MB</p>
+              <form className="space-y-4">
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Select Category
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {categories.slice(1).map(cat => (
+                      <div 
+                        key={cat.id}
+                        className={`border rounded-md p-2 cursor-pointer flex flex-col items-center justify-center hover:bg-blue-50 transition-colors 
+                          ${selectedCategory === cat.id ? 'bg-blue-100 border-blue-500 border-2' : ''}`}
+                        onClick={() => handleCategorySelect(cat.id)}
+                      >
+                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-1">
+                          {cat.icon}
+                        </div>
+                        <span className="text-sm">{cat.label}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              
-              <div className="flex justify-end space-x-3">
-                <Button 
-                  variant="outline" 
-                  onClick={toggleUploadModal}
-                >
-                  Cancel
-                </Button>
-                <Button 
-                  className="bg-blue-700 hover:bg-blue-800"
-                >
-                  Upload Image
-                </Button>
-              </div>
+                
+                <div className="mb-4">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Upload Multiple Images
+                  </label>
+                  <div 
+                    className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors"
+                  >
+                    <input 
+                      type="file" 
+                      multiple 
+                      className="hidden" 
+                      id="gallery-image-upload" 
+                      accept="image/*"
+                      onChange={handleFileSelect}
+                    />
+                    <label htmlFor="gallery-image-upload" className="cursor-pointer block">
+                      <Upload className="mx-auto h-12 w-12 text-blue-500 mb-3" />
+                      <p className="text-lg font-medium text-gray-700">Drop files here or click to upload</p>
+                      <p className="mt-1 text-sm text-gray-500">You can select multiple images at once</p>
+                      <p className="mt-4 text-xs text-gray-400">Supported formats: JPG, PNG, GIF</p>
+                    </label>
+                  </div>
+                </div>
+                
+                {/* Selected Files Preview */}
+                <div className="mb-4">
+                  <h3 className="text-sm font-bold text-gray-700 mb-2">
+                    Selected Files: {selectedFiles.length > 0 ? `(${selectedFiles.length})` : ''}
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    {selectedFiles.length === 0 ? (
+                      <div className="w-16 h-16 bg-gray-100 rounded-md flex items-center justify-center text-xs text-gray-500">
+                        No files
+                      </div>
+                    ) : (
+                      selectedFiles.map((file, index) => (
+                        <div key={index} className="relative w-20 h-20 group">
+                          <img 
+                            src={file.preview} 
+                            alt={`Preview ${index}`}
+                            className="w-full h-full object-cover rounded-md border border-gray-300"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeFile(index)}
+                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                  {selectedFiles.length > 0 && (
+                    <div className="mt-2 text-right">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedFiles([])}
+                        className="text-sm text-red-600 hover:text-red-800"
+                      >
+                        Clear All
+                      </button>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex justify-end space-x-3">
+                  <Button 
+                    variant="outline" 
+                    onClick={toggleUploadModal}
+                  >
+                    Cancel
+                  </Button>
+                  <Button 
+                    className="bg-blue-700 hover:bg-blue-800"
+                    type="button"
+                  >
+                    Upload All Images
+                  </Button>
+                </div>
+              </form>
             </div>
           </div>
         )}
