@@ -70,6 +70,23 @@ const resources = {
       "audit.subtitle": "Get a comprehensive security evaluation for your property",
       "audit.cta": "Start Your Free Assessment",
       
+      // Client Feedback
+      "feedback.title": "Your Feedback Matters",
+      "feedback.subtitle": "Help us improve our services by sharing your experience",
+      "feedback.form.name": "Full Name",
+      "feedback.form.namePlaceholder": "Enter your name",
+      "feedback.form.email": "Email Address",
+      "feedback.form.emailPlaceholder": "Enter your email",
+      "feedback.form.overallRating": "Overall Rating",
+      "feedback.form.serviceQuality": "Service Quality",
+      "feedback.form.reportQuality": "Report Quality",
+      "feedback.form.selectRating": "Select a rating",
+      "feedback.form.additionalComments": "Additional Comments",
+      "feedback.form.commentsPlaceholder": "Please share your thoughts or suggestions...",
+      "feedback.form.commentsHelp": "Your comments help us understand how we can better serve you",
+      "feedback.form.submit": "Submit Feedback",
+      "feedback.form.submitting": "Submitting...",
+      
       // Footer
       "footer.rights": "All Rights Reserved",
       "footer.privacy": "Privacy Policy",
@@ -141,6 +158,23 @@ const resources = {
       "audit.title": "सुरक्षा ऑडिट और मूल्यांकन",
       "audit.subtitle": "अपनी संपत्ति के लिए व्यापक सुरक्षा मूल्यांकन प्राप्त करें",
       "audit.cta": "अपना निःशुल्क मूल्यांकन शुरू करें",
+      
+      // Client Feedback
+      "feedback.title": "आपकी प्रतिक्रिया महत्वपूर्ण है",
+      "feedback.subtitle": "अपने अनुभव को साझा करके हमें अपनी सेवाओं को बेहतर बनाने में मदद करें",
+      "feedback.form.name": "पूरा नाम",
+      "feedback.form.namePlaceholder": "अपना नाम दर्ज करें",
+      "feedback.form.email": "ईमेल पता",
+      "feedback.form.emailPlaceholder": "अपना ईमेल दर्ज करें",
+      "feedback.form.overallRating": "समग्र रेटिंग",
+      "feedback.form.serviceQuality": "सेवा की गुणवत्ता",
+      "feedback.form.reportQuality": "रिपोर्ट की गुणवत्ता",
+      "feedback.form.selectRating": "रेटिंग चुनें",
+      "feedback.form.additionalComments": "अतिरिक्त टिप्पणियां",
+      "feedback.form.commentsPlaceholder": "कृपया अपने विचार या सुझाव साझा करें...",
+      "feedback.form.commentsHelp": "आपकी टिप्पणियां हमें समझने में मदद करती हैं कि हम आपकी बेहतर सेवा कैसे कर सकते हैं",
+      "feedback.form.submit": "प्रतिक्रिया भेजें",
+      "feedback.form.submitting": "भेजा जा रहा है...",
       
       // Footer
       "footer.rights": "सर्वाधिकार सुरक्षित",
