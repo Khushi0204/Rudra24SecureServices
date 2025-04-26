@@ -61,3 +61,29 @@ export const insertSecurityReportSchema = createInsertSchema(securityReports).pi
 
 export type InsertSecurityReport = z.infer<typeof insertSecurityReportSchema>;
 export type SecurityReport = typeof securityReports.$inferSelect;
+
+// Career application schema
+export const careerApplications = pgTable("career_applications", {
+  id: serial("id").primaryKey(),
+  fullName: text("full_name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  position: text("position").notNull(),
+  experience: integer("experience"),
+  resumePath: text("resume_path"),
+  coverLetter: text("cover_letter"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertCareerApplicationSchema = createInsertSchema(careerApplications).pick({
+  fullName: true,
+  email: true,
+  phone: true,
+  position: true,
+  experience: true,
+  resumePath: true,
+  coverLetter: true,
+});
+
+export type InsertCareerApplication = z.infer<typeof insertCareerApplicationSchema>;
+export type CareerApplication = typeof careerApplications.$inferSelect;
