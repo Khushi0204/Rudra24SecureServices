@@ -66,8 +66,12 @@ export default function Header() {
             />
           </div>
           <div>
-            <h1 className="text-xl font-bold">Rudra 24 Secure</h1>
-            <p className="text-sm text-yellow-400">
+            <img 
+              src="/images/rudra-text-logo.png" 
+              alt="Rudra 24 Secure" 
+              className="h-12 object-contain"
+            />
+            <p className="text-sm text-yellow-400 mt-1">
               Professional Security & Housekeeping
             </p>
           </div>
