@@ -15,6 +15,7 @@ const resources = {
       "nav.contact": "Contact",
       "nav.securityAudit": "Security Audit",
       "nav.feedback": "Feedback",
+      "nav.clientFeedback": "Client Feedback",
       "nav.clientLogin": "Client Login",
       
       // Homepage
@@ -106,6 +107,7 @@ const resources = {
       "nav.contact": "संपर्क",
       "nav.securityAudit": "सुरक्षा ऑडिट",
       "nav.feedback": "प्रतिक्रिया",
+      "nav.clientFeedback": "ग्राहक प्रतिक्रिया",
       "nav.clientLogin": "क्लाइंट लॉगिन",
       
       // Homepage

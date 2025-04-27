@@ -8,6 +8,7 @@ import ContactInfo from "@/components/home/ContactInfo";
 import SecurityAuditForm from "@/components/audit/SecurityAuditForm";
 import Testimonials from "@/components/home/Testimonials";
 import Contact from "@/components/home/Contact";
+import SecuritySurveyPopup from "@/components/home/SecuritySurveyPopup";
 
 export default function Home() {
   // Update the document title when the component mounts
@@ -26,6 +27,7 @@ export default function Home() {
       <Testimonials />
       <ContactInfo />
       <Contact />
+      <SecuritySurveyPopup />
     </>
   );
 }
