@@ -124,24 +124,37 @@ export default function Footer() {
               <li className="flex items-start group transition-all duration-300 hover:translate-x-1">
                 <MapPin className="mt-1 mr-2 text-yellow-400 h-5 w-5 flex-shrink-0" />
                 <span className="text-blue-100 group-hover:text-yellow-300 transition-colors duration-300">
-                  A-8, Sector-3, Noida, Uttar Pradesh 201301
+                  <strong>Head Office:</strong><br />
+                  Rudra House Plot No.72, Street No.2, Sunita Vihar,<br />
+                  (Near Indira Puri 2 No) Loni, Ghaziabad (UP) 201102<br />
+                  <strong>Branch Offices:</strong> Delhi, Noida, Ghaziabad, Faridabad, Gurugram, Sonipat
                 </span>
               </li>
               <li className="flex items-start group transition-all duration-300 hover:translate-x-1">
                 <Phone className="mt-1 mr-2 text-yellow-400 h-5 w-5 flex-shrink-0" />
                 <span className="text-blue-100 group-hover:text-yellow-300 transition-colors duration-300">
-                  +91 70111 14333<br />
-                  +91 88264 04473
+                  <strong>Main Numbers:</strong><br />
+                  9625785431, 9625729177, 9625724855<br />
+                  <strong>Branch Office:</strong> 8860430007, 9999881949
                 </span>
               </li>
               <li className="flex items-start group transition-all duration-300 hover:translate-x-1">
                 <Mail className="mt-1 mr-2 text-yellow-400 h-5 w-5 flex-shrink-0" />
-                <a 
-                  href="mailto:Rudra24securegroup@gmail.com"
-                  className="text-blue-100 hover:text-yellow-300 transition-colors duration-300"
-                >
-                  Rudra24securegroup@gmail.com
-                </a>
+                <span className="text-blue-100 group-hover:text-yellow-300 transition-colors duration-300">
+                  <a 
+                    href="mailto:Rudra24securegroup@gmail.com"
+                    className="text-blue-100 hover:text-yellow-300 transition-colors duration-300"
+                  >
+                    Rudra24securegroup@gmail.com
+                  </a>
+                  <br />
+                  <a 
+                    href="mailto:rudra24securepl@gmail.com"
+                    className="text-blue-100 hover:text-yellow-300 transition-colors duration-300"
+                  >
+                    rudra24securepl@gmail.com
+                  </a>
+                </span>
               </li>
             </ul>
           </div>
