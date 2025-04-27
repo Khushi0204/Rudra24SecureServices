@@ -1,75 +1,8 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-
-const contactFormSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().optional(),
-  subject: z.string().min(1, "Please select a subject"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactFormValues = z.infer<typeof contactFormSchema>;
+import { Link } from "wouter";
 
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-
-  const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    },
-  });
-
-  const onSubmit = async (data: ContactFormValues) => {
-    setIsSubmitting(true);
-    try {
-      await apiRequest("POST", "/api/contact", data);
-      toast({
-        title: "Message sent successfully!",
-        description: "We'll get back to you as soon as possible.",
-        variant: "default",
-      });
-      form.reset();
-    } catch (error) {
-      toast({
-        title: "Error sending message",
-        description: "Please try again later.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <section id="contact" className="py-16 bg-primary text-white">
       <div className="container mx-auto px-4">
@@ -183,139 +116,24 @@ export default function Contact() {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-xl font-semibold mb-4">Send Us a Message</h3>
-
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="grid grid-cols-1 gap-4"
+            <div className="bg-blue-900 rounded-lg p-8 shadow-lg flex flex-col items-center justify-center">
+              <h3 className="text-xl font-semibold mb-6 text-center">Need to Get in Touch?</h3>
+              <p className="text-gray-300 mb-8 text-center">
+                Visit our contact page to send us a message. Our team is ready to assist you with any questions or concerns you may have.
+              </p>
+              
+              <div className="w-full flex justify-center">
+                <Button 
+                  asChild
+                  size="lg"
+                  variant="secondary"
+                  className="px-8 py-6 text-lg font-semibold animate-pulse-slow hover:animate-none transition-all duration-300"
                 >
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm font-medium">
-                          Name <span className="text-secondary">*</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            className="border-gray-700 bg-primary-light text-white focus:ring-secondary"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm font-medium">
-                          Email <span className="text-secondary">*</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            type="email"
-                            className="border-gray-700 bg-primary-light text-white focus:ring-secondary"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm font-medium">
-                          Phone
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            {...field}
-                            type="tel"
-                            className="border-gray-700 bg-primary-light text-white focus:ring-secondary"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="subject"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm font-medium">
-                          Subject <span className="text-secondary">*</span>
-                        </FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger className="border-gray-700 bg-primary-light text-white focus:ring-secondary">
-                              <SelectValue placeholder="Select a subject" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value="quote">
-                              Request a Quote
-                            </SelectItem>
-                            <SelectItem value="service">
-                              Service Inquiry
-                            </SelectItem>
-                            <SelectItem value="support">
-                              Customer Support
-                            </SelectItem>
-                            <SelectItem value="feedback">Feedback</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm font-medium">
-                          Message <span className="text-secondary">*</span>
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            rows={4}
-                            className="border-gray-700 bg-primary-light text-white focus:ring-secondary"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <Button
-                    type="submit"
-                    variant="secondary"
-                    disabled={isSubmitting}
-                    className="w-full hover:bg-secondary-light"
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </form>
-              </Form>
+                  <Link to="/contact" className="flex items-center gap-2">
+                    Contact Us Now <ArrowRight className="ml-1 h-5 w-5" />
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

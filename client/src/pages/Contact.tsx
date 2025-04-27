@@ -51,8 +51,11 @@ export default function ContactPage() {
         adminEmails: ["rudra24securegroup@gmail.com", "rudra24securepl@gmail.com"]
       };
       
-      const response = await apiRequest("/api/contact", {
+      await fetch("/api/contact", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(contactData),
       });
       
