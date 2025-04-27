@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Shield, Clock } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "wouter";
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -63,10 +64,10 @@ export default function Hero() {
                 className="hover:bg-yellow-500 bg-yellow-400 text-blue-900 font-bold transition-all duration-300 shadow-md hover:shadow-xl animate-pulse-slow relative overflow-hidden group text-lg px-6 py-6"
                 asChild
               >
-                <a href="#" id="open-survey-btn">
+                <Link to="/services/security-survey">
                   <span className="relative z-10">START FREE SECURITY SURVEY</span>
                   <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-yellow-500/0 via-yellow-200/30 to-yellow-500/0 -translate-x-full animate-shimmer group-hover:translate-x-full transition-transform duration-1000"></span>
-                </a>
+                </Link>
               </Button>
               <Button
                 size="lg"
@@ -74,10 +75,10 @@ export default function Hero() {
                 className="bg-gradient-to-r from-blue-700 to-blue-600 hover:from-blue-600 hover:to-blue-500 transition-all duration-500 shadow-md hover:shadow-xl animate-hover-scale"
                 asChild
               >
-                <a href="#contact" className="relative overflow-hidden">
+                <Link to="/contact" className="relative overflow-hidden">
                   <span className="relative z-10">Contact Security Expert</span>
                   <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500/0 via-blue-400/20 to-blue-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
-                </a>
+                </Link>
               </Button>
               <Button
                 size="lg"
@@ -85,10 +86,10 @@ export default function Hero() {
                 className="border-white hover:bg-white hover:text-primary transition-all duration-300 animate-hover-scale hover:rotate-1 overflow-hidden group"
                 asChild
               >
-                <a href="#services">
+                <Link to="/services">
                   <span className="relative z-10">Our Services</span>
                   <span className="absolute inset-0 w-0 bg-white/20 group-hover:w-full -skew-x-12 transition-all duration-500"></span>
-                </a>
+                </Link>
               </Button>
             </div>
           </div>
