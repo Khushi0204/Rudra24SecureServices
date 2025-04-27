@@ -21,11 +21,16 @@ import {
 } from "@/components/ui/select";
 
 const formSchema = z.object({
-  propertyType: z.string().min(1, "Please select a property type"),
-  propertySize: z.string().optional(),
-  address: z.string().min(5, "Please enter a valid address"),
+  premisesType: z.string().min(1, "Please select a property type"),
+  landArea: z.string().optional(),
+  buildingArea: z.string().optional(),
+  floors: z.string().optional(),
+  entrances: z.string().optional(),
+  operatingHours: z.string().min(1, "Please select operating hours"),
+  securityProvider: z.string().optional(),
+  securityContact: z.string().optional(),
   occupants: z.string().optional(),
-  existingSecurity: z.string().optional(),
+  address: z.string().min(5, "Please enter a valid address"),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -44,11 +49,16 @@ export default function FormStep2({
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      propertyType: data.propertyType || "",
-      propertySize: data.propertySize || "",
-      address: data.address || "",
+      premisesType: data.premisesType || "",
+      landArea: data.landArea || "",
+      buildingArea: data.buildingArea || "",
+      floors: data.floors || "",
+      entrances: data.entrances || "",
+      operatingHours: data.operatingHours || "",
+      securityProvider: data.securityProvider || "",
+      securityContact: data.securityContact || "",
       occupants: data.occupants || "",
-      existingSecurity: data.existingSecurity || "none",
+      address: data.address || "",
     },
   });
 
@@ -65,11 +75,11 @@ export default function FormStep2({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <FormField
               control={form.control}
-              name="propertyType"
+              name="premisesType"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Property Type <span className="text-red-500">*</span>
+                    Type of Premises <span className="text-red-500">*</span>
                   </FormLabel>
                   <Select
                     onValueChange={field.onChange}
@@ -77,31 +87,21 @@ export default function FormStep2({
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select property type" />
+                        <SelectValue placeholder="Select premises type" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="residential">Residential</SelectItem>
-                      <SelectItem value="commercial">Commercial</SelectItem>
-                      <SelectItem value="industrial">Industrial</SelectItem>
-                      <SelectItem value="retail">Retail</SelectItem>
+                      <SelectItem value="residence">Private Residence</SelectItem>
+                      <SelectItem value="apartment">Apartment Complex</SelectItem>
+                      <SelectItem value="office">Office Building</SelectItem>
+                      <SelectItem value="retail">Retail Store</SelectItem>
+                      <SelectItem value="warehouse">Warehouse/Storage</SelectItem>
+                      <SelectItem value="manufacturing">Manufacturing Facility</SelectItem>
+                      <SelectItem value="educational">Educational Institution</SelectItem>
+                      <SelectItem value="healthcare">Healthcare Facility</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="propertySize"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Property Size (sq ft/m²)</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="number" />
-                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -113,7 +113,7 @@ export default function FormStep2({
               render={({ field }) => (
                 <FormItem className="md:col-span-2">
                   <FormLabel>
-                    Property Address <span className="text-red-500">*</span>
+                    Premises Address <span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
                     <Textarea rows={3} {...field} />
@@ -125,10 +125,38 @@ export default function FormStep2({
 
             <FormField
               control={form.control}
-              name="occupants"
+              name="landArea"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Number of Regular Occupants</FormLabel>
+                  <FormLabel>Land Area (sq ft/m²)</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="text" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="buildingArea"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Building Area (sq ft/m²)</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="text" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="floors"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Number of Floors/Levels</FormLabel>
                   <FormControl>
                     <Input {...field} type="number" />
                   </FormControl>
@@ -139,32 +167,84 @@ export default function FormStep2({
 
             <FormField
               control={form.control}
-              name="existingSecurity"
+              name="entrances"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Existing Security Systems</FormLabel>
+                  <FormLabel>Number of Entrances/Exits</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="number" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="operatingHours"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Operating Hours <span className="text-red-500">*</span>
+                  </FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select existing security" />
+                        <SelectValue placeholder="Select operating hours" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="none">None</SelectItem>
-                      <SelectItem value="basic">
-                        Basic (locks, simple alarms)
-                      </SelectItem>
-                      <SelectItem value="intermediate">
-                        Intermediate (cameras, monitored alarms)
-                      </SelectItem>
-                      <SelectItem value="advanced">
-                        Advanced (integrated security system)
-                      </SelectItem>
+                      <SelectItem value="standard">Standard Business Hours (9am-5pm)</SelectItem>
+                      <SelectItem value="extended">Extended Hours (6am-10pm)</SelectItem>
+                      <SelectItem value="24hours">24 Hours</SelectItem>
+                      <SelectItem value="irregular">Irregular/Variable Hours</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="occupants"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Average Daily Occupancy</FormLabel>
+                  <FormControl>
+                    <Input {...field} type="number" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="securityProvider"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Current Security Provider (if any)</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="securityContact"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Security Manager/Contact Person</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
