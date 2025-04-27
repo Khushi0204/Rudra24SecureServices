@@ -91,33 +91,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/contact", async (req, res) => {
     try {
       const contactData = insertContactSchema.parse(req.body);
+      const adminEmails = req.body.adminEmails || ["rudra24securegroup@gmail.com", "rudra24securepl@gmail.com"];
       
       // Store the contact submission
       const contact = await storage.createContact(contactData);
       
-      // Send email notification about the contact
-      await sendEmail({
-        to: "info@secureguardservices.com", // Company's email address
-        subject: `New Contact Form Submission: ${contactData.subject}`,
-        text: `
-          Name: ${contactData.name}
-          Email: ${contactData.email}
-          Phone: ${contactData.phone || "Not provided"}
-          Subject: ${contactData.subject}
-          Message: ${contactData.message}
-        `,
-        html: `
-          <div>
-            <h2>New Contact Form Submission</h2>
-            <p><strong>Name:</strong> ${contactData.name}</p>
-            <p><strong>Email:</strong> ${contactData.email}</p>
-            <p><strong>Phone:</strong> ${contactData.phone || "Not provided"}</p>
-            <p><strong>Subject:</strong> ${contactData.subject}</p>
-            <p><strong>Message:</strong></p>
-            <p>${contactData.message}</p>
-          </div>
-        `,
-      });
+      // Send email notification about the contact to admin emails
+      for (const adminEmail of adminEmails) {
+        await sendEmail({
+          to: adminEmail,
+          subject: `New Contact Form Submission: ${contactData.subject}`,
+          text: `
+            Name: ${contactData.name}
+            Email: ${contactData.email}
+            Phone: ${contactData.phone || "Not provided"}
+            Subject: ${contactData.subject}
+            Message: ${contactData.message}
+          `,
+          html: `
+            <div>
+              <h2>New Contact Form Submission</h2>
+              <p><strong>Name:</strong> ${contactData.name}</p>
+              <p><strong>Email:</strong> ${contactData.email}</p>
+              <p><strong>Phone:</strong> ${contactData.phone || "Not provided"}</p>
+              <p><strong>Subject:</strong> ${contactData.subject}</p>
+              <p><strong>Message:</strong></p>
+              <p>${contactData.message}</p>
+            </div>
+          `,
+        });
+      }
       
       res.status(201).json({ message: "Contact form submitted successfully" });
     } catch (error) {
@@ -162,36 +165,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const application = await storage.createCareerApplication(validatedData);
       
       // Send email notification about the career application
-      await sendEmail({
-        to: "careers@secureguardservices.com", // Company's careers email address
-        subject: `New Career Application: ${applicationData.position}`,
-        text: `
-          Name: ${applicationData.fullName}
-          Email: ${applicationData.email}
-          Phone: ${applicationData.phone}
-          Position: ${applicationData.position}
-          Experience: ${applicationData.experience || "Not specified"} years
-          Cover Letter: ${applicationData.coverLetter || "Not provided"}
-          Resume: ${file ? "Attached" : "Not provided"}
-        `,
-        html: `
-          <div>
-            <h2>New Career Application</h2>
-            <p><strong>Name:</strong> ${applicationData.fullName}</p>
-            <p><strong>Email:</strong> ${applicationData.email}</p>
-            <p><strong>Phone:</strong> ${applicationData.phone}</p>
-            <p><strong>Position:</strong> ${applicationData.position}</p>
-            <p><strong>Experience:</strong> ${applicationData.experience || "Not specified"} years</p>
-            ${applicationData.coverLetter ? `
-              <p><strong>Cover Letter:</strong></p>
-              <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
-                ${applicationData.coverLetter}
-              </div>
-            ` : ''}
-            <p><strong>Resume:</strong> ${file ? "Attached" : "Not provided"}</p>
-          </div>
-        `,
-      });
+      const adminEmails = formData.adminEmails ? 
+        JSON.parse(formData.adminEmails) : 
+        ["rudra24securegroup@gmail.com", "rudra24securepl@gmail.com"];
+      
+      for (const adminEmail of adminEmails) {
+        await sendEmail({
+          to: adminEmail,
+          subject: `New Career Application: ${applicationData.position}`,
+          text: `
+            Name: ${applicationData.fullName}
+            Email: ${applicationData.email}
+            Phone: ${applicationData.phone}
+            Position: ${applicationData.position}
+            Experience: ${applicationData.experience || "Not specified"} years
+            Cover Letter: ${applicationData.coverLetter || "Not provided"}
+            Resume: ${file ? "Attached" : "Not provided"}
+          `,
+          html: `
+            <div>
+              <h2>New Career Application</h2>
+              <p><strong>Name:</strong> ${applicationData.fullName}</p>
+              <p><strong>Email:</strong> ${applicationData.email}</p>
+              <p><strong>Phone:</strong> ${applicationData.phone}</p>
+              <p><strong>Position:</strong> ${applicationData.position}</p>
+              <p><strong>Experience:</strong> ${applicationData.experience || "Not specified"} years</p>
+              ${applicationData.coverLetter ? `
+                <p><strong>Cover Letter:</strong></p>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
+                  ${applicationData.coverLetter}
+                </div>
+              ` : ''}
+              <p><strong>Resume:</strong> ${file ? "Attached" : "Not provided"}</p>
+            </div>
+          `,
+        });
+      }
       
       res.status(201).json({ message: "Application submitted successfully" });
     } catch (error) {
@@ -230,34 +239,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Send email notification about the feedback to company
-      await sendEmail({
-        to: "feedback@rudra24secure.com", // Company's feedback email address
-        subject: `New Client Feedback: ${feedbackData.rating}/5 Stars`,
-        text: `
-          Name: ${feedbackData.name}
-          Email: ${feedbackData.email}
-          Overall Rating: ${feedbackData.rating}/5
-          Service Quality: ${feedbackData.serviceQuality}/5
-          Report Quality: ${feedbackData.reportQuality}/5
-          Report ID: ${feedbackData.reportId || "Not specified"}
-          Comments: ${feedbackData.comment}
-        `,
-        html: `
-          <div>
-            <h2>New Client Feedback</h2>
-            <p><strong>Name:</strong> ${feedbackData.name}</p>
-            <p><strong>Email:</strong> ${feedbackData.email}</p>
-            <p><strong>Overall Rating:</strong> ${feedbackData.rating}/5</p>
-            <p><strong>Service Quality:</strong> ${feedbackData.serviceQuality}/5</p>
-            <p><strong>Report Quality:</strong> ${feedbackData.reportQuality}/5</p>
-            <p><strong>Report ID:</strong> ${feedbackData.reportId || "Not specified"}</p>
-            <p><strong>Comments:</strong></p>
-            <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
-              ${feedbackData.comment}
+      const adminEmails = req.body.adminEmails || ["rudra24securegroup@gmail.com", "rudra24securepl@gmail.com"];
+      
+      for (const adminEmail of Array.isArray(adminEmails) ? adminEmails : [adminEmails]) {
+        await sendEmail({
+          to: adminEmail,
+          subject: `New Client Feedback: ${feedbackData.rating}/5 Stars`,
+          text: `
+            Name: ${feedbackData.name}
+            Email: ${feedbackData.email}
+            Overall Rating: ${feedbackData.rating}/5
+            Service Quality: ${feedbackData.serviceQuality}/5
+            Report Quality: ${feedbackData.reportQuality}/5
+            Report ID: ${feedbackData.reportId || "Not specified"}
+            Comments: ${feedbackData.comment}
+          `,
+          html: `
+            <div>
+              <h2>New Client Feedback</h2>
+              <p><strong>Name:</strong> ${feedbackData.name}</p>
+              <p><strong>Email:</strong> ${feedbackData.email}</p>
+              <p><strong>Overall Rating:</strong> ${feedbackData.rating}/5</p>
+              <p><strong>Service Quality:</strong> ${feedbackData.serviceQuality}/5</p>
+              <p><strong>Report Quality:</strong> ${feedbackData.reportQuality}/5</p>
+              <p><strong>Report ID:</strong> ${feedbackData.reportId || "Not specified"}</p>
+              <p><strong>Comments:</strong></p>
+              <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
+                ${feedbackData.comment}
+              </div>
             </div>
-          </div>
-        `,
-      });
+          `,
+        });
+      }
       
       // If we found the report owner, thank them for their feedback
       if (reportOwnerEmail && reportOwnerName) {

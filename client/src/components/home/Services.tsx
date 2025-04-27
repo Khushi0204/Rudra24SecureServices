@@ -126,43 +126,47 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {mainServices.map((service, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-lg p-6 transition-all duration-500 hover:shadow-xl border-t-4 border-blue-600 card-transition-3d group animate-zoom-in overflow-hidden relative"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-              
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-full flex items-center justify-center mb-4 shadow-inner group-hover:shadow-md transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 transform-gpu">
-                <div className="animate-float" style={{ animationDelay: `${index * 0.3}s` }}>
-                  {service.icon}
+        {loading ? (
+          <ServiceGridSkeleton />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+            {mainServices.map((service, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-lg p-6 transition-all duration-500 hover:shadow-xl border-t-4 border-blue-600 card-transition-3d group animate-zoom-in overflow-hidden relative"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-full flex items-center justify-center mb-4 shadow-inner group-hover:shadow-md transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 transform-gpu">
+                  <div className="animate-float" style={{ animationDelay: `${index * 0.3}s` }}>
+                    {service.icon}
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-semibold mb-3 text-blue-800 group-hover:text-blue-700 transition-colors duration-300 relative">
+                  {service.title}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 transition-all duration-500 ease-out"></span>
+                </h3>
+                
+                <p className="text-gray-600 mb-4 text-sm group-hover:text-gray-700 transition-colors duration-300">{service.description}</p>
+                
+                <div className="flex flex-wrap gap-2">
+                  {service.features.map((feature, i) => (
+                    <Badge 
+                      key={i} 
+                      variant="outline" 
+                      className="bg-blue-50 text-blue-700 border-blue-200 transition-all duration-300 hover:bg-blue-100 hover:scale-105 group-hover:translate-y-0 translate-y-0 hover:shadow-sm"
+                      style={{ transitionDelay: `${i * 50}ms` }}
+                    >
+                      {feature}
+                    </Badge>
+                  ))}
                 </div>
               </div>
-              
-              <h3 className="text-xl font-semibold mb-3 text-blue-800 group-hover:text-blue-700 transition-colors duration-300 relative">
-                {service.title}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 transition-all duration-500 ease-out"></span>
-              </h3>
-              
-              <p className="text-gray-600 mb-4 text-sm group-hover:text-gray-700 transition-colors duration-300">{service.description}</p>
-              
-              <div className="flex flex-wrap gap-2">
-                {service.features.map((feature, i) => (
-                  <Badge 
-                    key={i} 
-                    variant="outline" 
-                    className="bg-blue-50 text-blue-700 border-blue-200 transition-all duration-300 hover:bg-blue-100 hover:scale-105 group-hover:translate-y-0 translate-y-0 hover:shadow-sm"
-                    style={{ transitionDelay: `${i * 50}ms` }}
-                  >
-                    {feature}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white rounded-xl p-8 shadow-xl mb-16 animate-fade-in relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('/images/security-pattern.png')] opacity-5"></div>
