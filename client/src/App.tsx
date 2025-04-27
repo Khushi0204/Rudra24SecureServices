@@ -5,7 +5,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
-import ServicesPage from "@/pages/Services";
+import ServicesPage from "@/pages/services";
+import SecurityGuardsPage from "@/pages/services/SecurityGuards";
+import SurveillancePage from "@/pages/services/Surveillance";
+import FacilityManagementPage from "@/pages/services/FacilityManagement";
+import SecurityAuditPage from "@/pages/services/SecurityAudit";
 import AboutPage from "@/pages/About";
 import CareersPage from "@/pages/Careers";
 import ClientFeedbackPage from "@/pages/ClientFeedback";
@@ -18,6 +22,10 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/services" component={ServicesPage} />
+      <Route path="/services/security-guards" component={SecurityGuardsPage} />
+      <Route path="/services/surveillance" component={SurveillancePage} />
+      <Route path="/services/facility-management" component={FacilityManagementPage} />
+      <Route path="/services/security-audit" component={SecurityAuditPage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/careers" component={CareersPage} />
       <Route path="/feedback" component={ClientFeedbackPage} />

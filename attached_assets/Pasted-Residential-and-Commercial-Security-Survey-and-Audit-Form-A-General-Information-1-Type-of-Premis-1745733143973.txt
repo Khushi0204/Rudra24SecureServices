@@ -1,0 +1,81 @@
+Residential and Commercial Security Survey and Audit Form
+A. General Information
+1. Type of Premises: [ ] Residential [ ] Commercial [ ] Mixed Use [ ] Other (specify): _____________
+2. Size of Premises (Approximate): Land area: _______ sq. ft. Building area: _______ sq. ft.
+3. Number of Floors: _______
+4. Number of Entrances/Exits: _______
+5. Operating Hours: [ ] 24/7 [ ] Business Hours: From ____ to ____ [ ] Other: __________
+6. Name of Security Provider Company (if applicable): _____________
+7. Contact Person for Security Matters: _____________
+8. Number of Residents/Employees Present Daily: _______
+B. Security Personnel & Post Audit
+1. Total Number of Security Guards Deployed: _______
+2. List of Guard Posts/Leaps and Staff Strength at Each:
+- Main Gate: ____ Guards
+- Reception: ____ Guards
+- Parking Area: ____ Guards
+- Rooftop/Terrace: ____ Guards
+- Service Entrances: ____ Guards
+- Emergency Exits: ____ Guards
+- Perimeter Patrols: ____ Guards
+- CCTV Control Room: ____ Guards
+- Loading/Unloading Bays: ____ Guards
+- Other (specify): __________
+3. Guard Duty Roster (Attach Copy):
+4. Guard Shift Patterns and Handover Procedure: __________
+5. Supervisory Presence at Site: [ ] Yes [ ] No
+6. Qualifications/Training Certificates of Guards Verified: [ ] Yes [ ] No
+7. Security Equipment Issued: [ ] Radios [ ] Batons [ ] Firearms [ ] Flashlights [ ] Body Armor [ ] Others: __________
+8. Uniform and ID Card Checks Completed: [ ] Yes [ ] No
+9. Average Response Time for Incident Handling: __________ minutes
+10. Daily Reporting and Log Maintenance Audit: [ ] Satisfactory [ ] Needs Improvement [ ] Not Maintained
+C. Physical Security Measures
+1. Perimeter Security:
+- Fence/Wall Condition: [ ] Excellent [ ] Good [ ] Fair [ ] Poor
+- Number and Type of Gates: ____ Manual ____ Automatic
+- Locking/Access Control Status: [ ] Good [ ] Needs Maintenance
+2. Lighting Audit:
+- Entrances/Exits Lighting: [ ] Adequate [ ] Inadequate
+- Parking Area Lighting: [ ] Adequate [ ] Inadequate
+- Perimeter Lighting: [ ] Adequate [ ] Inadequate
+3. Surveillance (CCTV) Audit:
+- Total Cameras Installed: ______
+- Areas Covered: [ ] Entrances [ ] Parking [ ] Perimeter [ ] Lobby [ ] Stairs
+- Real-time Monitoring Available: [ ] Yes [ ] No
+- CCTV Recording Backup Duration: ______ Days
+4. Alarm System Status:
+- [ ] Burglar Alarm [ ] Fire Alarm [ ] Panic Button [ ] Emergency PA System
+5. Access Control Systems Present:
+- [ ] Manual Registers [ ] Keycard Access [ ] Biometric Readers [ ] Visitor Management System
+6. Vehicle Management:
+- Boom Barriers Installed: [ ] Yes [ ] No
+- Under Vehicle Surveillance System: [ ] Yes [ ] No
+- License Plate Recognition Cameras: [ ] Yes [ ] No
+D. Emergency Preparedness Audit
+1. Fire Safety Equipment Present and Verified:
+- Fire Extinguishers: [ ] Present [ ] Absent
+- Fire Hose Reels: [ ] Present [ ] Absent
+- Smoke Detectors: [ ] Present [ ] Absent
+- Sprinklers: [ ] Present [ ] Absent
+2. Emergency Evacuation Plan Displayed: [ ] Yes [ ] No
+3. Fire Drill Conducted: [ ] Monthly [ ] Quarterly [ ] Annually [ ] Never
+4. First Aid Kits Present and Stocked: [ ] Yes [ ] No
+5. Training Records for Emergency Response:
+- Fire Response Training: [ ] Completed [ ] Pending
+- First Aid/CPR Training: [ ] Completed [ ] Pending
+- Evacuation Drill Training: [ ] Completed [ ] Pending
+E. Risk Assessment & Recommendations
+1. Review of Previous Security Incidents (Last 2 Years):
+- [ ] Theft [ ] Assault [ ] Fire [ ] Vandalism [ ] Medical Emergency [ ] Others: __________
+2. High-Risk Areas Identified During Audit: __________
+3. Summary of Non-Compliance/Deficiencies: __________
+4. Recommended Security Enhancements: __________
+5. Management Action Plan Needed: [ ] Yes [ ] No
+F. Additional Observations and Comments
+____________________________________________________________
+____________________________________________________________
+____________________________________________________________
+
+Survey and Audit Conducted by: _____________________
+Client/Manager Name: _____________________
+Date: _____________________
