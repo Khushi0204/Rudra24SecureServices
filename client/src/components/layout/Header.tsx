@@ -138,6 +138,16 @@ export default function Header() {
       </li>
       <li className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
         <Button
+          variant="outline"
+          size="sm"
+          className="bg-green-600 text-white hover:bg-green-700 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md mr-2"
+          asChild
+        >
+          <Link to="/careers" onClick={isMobile ? closeSheet : undefined}>
+            Job Portal
+          </Link>
+        </Button>
+        <Button
           variant="secondary"
           size="sm"
           className="hover:bg-yellow-400 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md"
@@ -212,7 +222,7 @@ export default function Header() {
           </Sheet>
         ) : (
           <nav className="animate-fade-in">
-            <ul className="flex space-x-6 items-center">
+            <ul className="flex space-x-4 items-center">
               <NavLinks />
             </ul>
           </nav>

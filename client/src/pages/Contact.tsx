@@ -83,20 +83,44 @@ export default function ContactPage() {
     {
       id: 1,
       name: "Rudra 24 Secure Headquarters",
-      address: "123 Security Plaza, New Delhi, India",
-      coordinates: [28.6139, 77.2090] as [number, number], // Delhi coordinates
+      address: "Rudra House Plot No.72, Street No.2, Sunita Vihar, Loni, Ghaziabad (UP) 201102",
+      coordinates: [28.7391, 77.2761] as [number, number], // Loni, Ghaziabad coordinates
     },
     {
       id: 2,
-      name: "Mumbai Office",
-      address: "456 Safety Tower, Mumbai, India",
-      coordinates: [19.0760, 72.8777] as [number, number], // Mumbai coordinates
+      name: "Delhi Branch Office",
+      address: "Delhi Branch Office",
+      coordinates: [28.6139, 77.2090] as [number, number], // Delhi coordinates
     },
     {
       id: 3,
-      name: "Bangalore Branch",
-      address: "789 Protection Road, Bangalore, India",
-      coordinates: [12.9716, 77.5946] as [number, number], // Bangalore coordinates
+      name: "Noida Branch Office",
+      address: "Noida Branch Office",
+      coordinates: [28.5355, 77.3910] as [number, number], // Noida coordinates
+    },
+    {
+      id: 4,
+      name: "Ghaziabad Branch Office",
+      address: "Ghaziabad Branch Office",
+      coordinates: [28.6692, 77.4538] as [number, number], // Ghaziabad coordinates
+    },
+    {
+      id: 5,
+      name: "Faridabad Branch Office",
+      address: "Faridabad Branch Office",
+      coordinates: [28.4089, 77.3178] as [number, number], // Faridabad coordinates
+    },
+    {
+      id: 6,
+      name: "Gurugram Branch Office",
+      address: "Gurugram Branch Office",
+      coordinates: [28.4595, 77.0266] as [number, number], // Gurugram coordinates
+    },
+    {
+      id: 7,
+      name: "Sonipat Branch Office",
+      address: "Sonipat Branch Office",
+      coordinates: [28.9931, 77.0151] as [number, number], // Sonipat coordinates
     },
   ];
 
@@ -236,9 +260,9 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-blue-800 mb-1">Phone</h3>
-                      <p className="text-gray-600 mb-1">General Inquiries: +91 1234 567 890</p>
-                      <p className="text-gray-600 mb-1">Emergency Response: +91 9876 543 210</p>
-                      <p className="text-gray-600">Customer Support: +91 8765 432 109</p>
+                      <p className="text-gray-600 mb-1">General Inquiries: 9625785431, 9625729177, 9625724855</p>
+                      <p className="text-gray-600 mb-1">Branch Office: 8860430007, 9999881949</p>
+                      <p className="text-gray-600">24/7 Emergency Support Available</p>
                     </div>
                   </div>
                   
@@ -261,8 +285,8 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold text-blue-800 mb-1">Head Office</h3>
                       <p className="text-gray-600">
-                        123 Security Plaza, Sector 62<br />
-                        Noida, Uttar Pradesh 201301<br />
+                        Rudra House Plot No.72, Street No.2, Sunita Vihar<br />
+                        (Near Indira Puri 2 No) Loni, Ghaziabad (UP) 201102<br />
                         India
                       </p>
                     </div>
@@ -275,10 +299,10 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold text-blue-800 mb-1">Operating Hours</h3>
                       <p className="text-gray-600 mb-1">
-                        <span className="font-medium">Office Hours:</span> Monday - Friday, 9:00 AM - 6:00 PM
+                        <span className="font-medium">Office Hours:</span> Monday - Saturday, 9:00 AM - 6:00 PM
                       </p>
                       <p className="text-gray-600 mb-1">
-                        <span className="font-medium">Customer Support:</span> 24/7
+                        <span className="font-medium">Security Services:</span> 24/7
                       </p>
                       <p className="text-gray-600">
                         <span className="font-medium">Emergency Response:</span> 24/7
@@ -322,7 +346,7 @@ export default function ContactPage() {
           <div className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-200 mb-16">
             <h2 className="text-2xl font-bold text-blue-800 p-6 bg-gray-50 border-b border-gray-200">Our Service Locations</h2>
             <div className="h-[500px] w-full">
-              <LocationMap locations={serviceLocations} zoom={5} />
+              <LocationMap locations={serviceLocations} zoom={10} />
             </div>
           </div>
         </PageFadeIn>
@@ -356,7 +380,7 @@ export default function ContactPage() {
                 className="bg-transparent text-blue-900 border-blue-900 hover:bg-blue-900 hover:text-yellow-500"
                 asChild
               >
-                <a href="tel:+919876543210">
+                <a href="tel:+919625724855">
                   Call Emergency Line
                 </a>
               </Button>

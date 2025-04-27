@@ -111,8 +111,7 @@ export default function ReferralAndRewards() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
           <PageFadeIn delay={200}>
             <Card className="shadow-lg border-blue-100 overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-50 rounded-full -mr-20 -mt-20 z-0"></div>
-              <CardHeader className="relative z-10">
+              <CardHeader>
                 <CardTitle className="text-2xl text-blue-800 flex items-center gap-2">
                   <Shield className="text-blue-600 h-6 w-6" />
                   How Our Referral Program Works
@@ -121,7 +120,7 @@ export default function ReferralAndRewards() {
                   Simple steps to earn rewards through our referral program
                 </CardDescription>
               </CardHeader>
-              <CardContent className="relative z-10">
+              <CardContent className="relative">
                 <div className="space-y-6">
                   {[
                     {
