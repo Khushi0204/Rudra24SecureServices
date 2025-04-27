@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { 
   UserCheck, 
   Camera, 
@@ -18,6 +19,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ServiceGridSkeleton } from "@/components/ui/skeleton";
 
 const mainServices = [
   {
@@ -99,6 +101,16 @@ const securityOperations = [
 
 export default function Services() {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(true);
+  
+  // Simulate loading delay for demonstration
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    
+    return () => clearTimeout(timer);
+  }, []);
   
   return (
     <section id="services" className="page-section bg-gradient-to-b from-gray-50 to-white">
