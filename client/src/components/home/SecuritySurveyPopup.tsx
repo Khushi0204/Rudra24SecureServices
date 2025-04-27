@@ -11,10 +11,32 @@ export default function SecuritySurveyPopup() {
   // Delay showing the popup when component mounts
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setIsOpen(true);
+      const wasDismissed = localStorage.getItem('surveyPopupDismissed') === 'true';
+      if (!wasDismissed) {
+        setIsOpen(true);
+      }
     }, 5000); // Show popup after 5 seconds
 
-    return () => clearTimeout(timeout);
+    // Add event listener for the survey button
+    const openSurveyBtn = document.getElementById('open-survey-btn');
+    if (openSurveyBtn) {
+      openSurveyBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        setIsOpen(true);
+      });
+    }
+
+    return () => {
+      clearTimeout(timeout);
+      // Clean up event listener
+      const openSurveyBtn = document.getElementById('open-survey-btn');
+      if (openSurveyBtn) {
+        openSurveyBtn.removeEventListener('click', (e) => {
+          e.preventDefault();
+          setIsOpen(true);
+        });
+      }
+    };
   }, []);
 
   // Store dismiss state in localStorage to avoid showing the popup repeatedly
@@ -23,13 +45,10 @@ export default function SecuritySurveyPopup() {
     localStorage.setItem('surveyPopupDismissed', 'true');
   };
 
-  // Check if popup was previously dismissed
-  useEffect(() => {
-    const wasDismissed = localStorage.getItem('surveyPopupDismissed') === 'true';
-    if (wasDismissed) {
-      setIsOpen(false);
-    }
-  }, []);
+  // Function to open the popup (exposed for external use)
+  const openPopup = () => {
+    setIsOpen(true);
+  };
 
   if (!isOpen) return null;
 
@@ -88,11 +107,11 @@ export default function SecuritySurveyPopup() {
           
           <div className="flex gap-3">
             <Button 
-              className="w-full bg-blue-700 hover:bg-blue-800 text-white"
+              className="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold text-lg py-6 shadow-lg hover:shadow-xl transition-all"
               asChild
             >
               <Link to="/services/security-audit" onClick={handleDismiss}>
-                Take Security Survey
+                START FREE SURVEY NOW
               </Link>
             </Button>
             <Button 

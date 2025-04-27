@@ -345,18 +345,18 @@ export default function SecurityAuditPage() {
             <Button
               size="lg"
               variant="secondary"
-              className="animate-hover-scale"
+              className="bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold transition-all shadow-lg hover:shadow-xl animate-hover-scale text-lg px-6 py-6"
               asChild
             >
-              <a href="#audit-form">Start Free Assessment</a>
+              <a href="#audit-form">START FREE SECURITY SURVEY</a>
             </Button>
             <Button
               size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-blue-800 animate-hover-scale"
+              variant="default"
+              className="bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg hover:shadow-xl transition-all px-6 py-6 animate-pulse"
               asChild
             >
-              <a href="#contact">Contact For Full Audit</a>
+              <a href="#contact">CONTACT SECURITY EXPERT NOW</a>
             </Button>
           </div>
         </div>

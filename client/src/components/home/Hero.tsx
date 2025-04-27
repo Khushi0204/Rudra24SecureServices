@@ -58,10 +58,18 @@ export default function Hero() {
               <Button
                 size="lg"
                 variant="secondary"
-                className="hover:bg-secondary-light transition-all duration-300 shadow-md hover:shadow-lg animate-hover-scale"
+                className="hover:bg-yellow-500 bg-yellow-400 text-blue-900 font-bold transition-all duration-300 shadow-md hover:shadow-xl animate-hover-scale text-lg px-6 py-6"
                 asChild
               >
-                <a href="#audit">Start Security Audit</a>
+                <a href="#" id="open-survey-btn">START FREE SECURITY SURVEY</a>
+              </Button>
+              <Button
+                size="lg"
+                variant="default"
+                className="bg-blue-600 hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-xl animate-hover-scale"
+                asChild
+              >
+                <a href="#contact">Contact Security Expert</a>
               </Button>
               <Button
                 size="lg"
