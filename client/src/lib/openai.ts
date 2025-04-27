@@ -1,7 +1,7 @@
 import { apiRequest } from "./queryClient";
 
 /**
- * Generate a security audit report using OpenAI's API
+ * Generate a security survey report using our custom implementation
  * @param formData The form data to generate the report from
  */
 export const generateSecurityReport = async (formData: any) => {

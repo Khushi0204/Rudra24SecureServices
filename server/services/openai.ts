@@ -1,5 +1,5 @@
 /**
- * Custom security audit report generator
+ * Custom security survey report generator
  * This replaces the OpenAI integration with our own implementation
  */
 
@@ -253,11 +253,11 @@ function identifyVulnerabilities(formData: any) {
 }
 
 /**
- * Generates a security audit report based on the provided form data
- * @param formData The form data from the security audit form
- * @returns A security audit report
+ * Generates a security survey report based on the provided form data
+ * @param formData The form data from the security survey form
+ * @returns A security survey report
  */
-export async function generateSecurityAuditReport(formData: any): Promise<string> {
+export async function generateSecuritySurveyReport(formData: any): Promise<string> {
   try {
     // Map values to human-readable format
     const propertyType = propertyTypeMap[formData.propertyType] || formData.propertyType || 'Commercial';
@@ -328,16 +328,16 @@ export async function generateSecurityAuditReport(formData: any): Promise<string
     
     // Format the report
     const report = `
-# SECURITY AUDIT REPORT
+# SECURITY SURVEY REPORT
 
 ## For: ${fullName}
 _Date: ${new Date().toLocaleDateString()}_
 
 ## 1. EXECUTIVE SUMMARY
 
-This security audit report has been prepared for ${fullName} based on the information provided regarding your ${propertyType.toLowerCase()} property located at ${address}. The assessment evaluates your current security posture and identifies potential vulnerabilities and risks.
+This security survey report has been prepared for ${fullName} based on the information provided regarding your ${propertyType.toLowerCase()} property located at ${address}. The assessment evaluates your current security posture and identifies potential vulnerabilities and risks.
 
-Key findings from this security audit include:
+Key findings from this security survey include:
 
 * ${vulnerabilities.length} security vulnerabilities identified (${vulnerabilities.filter(v => v.risk === 'high').length} high-risk, ${vulnerabilities.filter(v => v.risk === 'medium').length} medium-risk)
 * Current security systems: ${existingSecurity}
@@ -398,12 +398,12 @@ ${recommendations.slice(0, 10).map((r, i) => `### ${i+1}. ${r}`).join('\n\n')}
 
 These recommendations have been tailored to your specific situation and prioritized based on risk level, budget considerations (${budget}), and implementation timeline preference (${timeline}).
 
-## 5. AUDIT SUGGESTIONS
+## 5. SURVEY SUGGESTIONS
 
 To further improve your security posture, consider implementing these additional measures specific to your situation:
 
-### Audit Frequency
-Based on your property type and risk level, we recommend conducting security audits every ${propertyTypeKey === 'retail' || propertyTypeKey === 'industrial' ? '3-6 months' : '6-12 months'} to ensure your security measures remain effective.
+### Survey Frequency
+Based on your property type and risk level, we recommend conducting security surveys every ${propertyTypeKey === 'retail' || propertyTypeKey === 'industrial' ? '3-6 months' : '6-12 months'} to ensure your security measures remain effective.
 
 ### Personnel Training
 ${vulnerabilities.length > 3 ? 'Due to the number of identified vulnerabilities, we strongly recommend' : 'We recommend'} implementing a comprehensive security awareness program for all staff. Training should cover:
@@ -452,7 +452,7 @@ ${budget === 'Limited' ?
 
 ## 7. CONCLUSION
 
-This security audit has identified several areas where your property's security can be significantly improved. By implementing the recommendations outlined in this report according to the proposed timeline, you can substantially enhance the safety and security of your property, assets, and occupants.
+This security survey has identified several areas where your property's security can be significantly improved. By implementing the recommendations outlined in this report according to the proposed timeline, you can substantially enhance the safety and security of your property, assets, and occupants.
 
 We recommend scheduling a follow-up security assessment in 6 months to evaluate the effectiveness of implemented security measures and identify any new vulnerabilities that may have emerged.
 

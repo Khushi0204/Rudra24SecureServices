@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import { insertContactSchema, insertSecurityReportSchema, insertCareerApplicationSchema, insertClientFeedbackSchema } from "@shared/schema";
-import { generateSecurityAuditReport } from "./services/openai";
+import { generateSecuritySurveyReport } from "./services/openai";
 import { sendEmail } from "./services/email";
 import { upload } from "./services/upload";
 import path from "path";
@@ -21,7 +21,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Generate report
-      const reportContent = await generateSecurityAuditReport(formData);
+      const reportContent = await generateSecuritySurveyReport(formData);
       
       // Create a unique report ID
       const reportId = nanoid(10);
@@ -66,16 +66,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Send email with the report
       await sendEmail({
         to,
-        subject: subject || "Your SecureGuard Security Audit Report",
-        text: `Hello ${name},\n\nThank you for completing the security audit. Here is your personalized security report:\n\n${report.reportContent}\n\nBest regards,\nSecureGuard Services`,
+        subject: subject || "Your Rudra 24 Security Survey Report",
+        text: `Hello ${name},\n\nThank you for completing the security survey. Here is your personalized security report:\n\n${report.reportContent}\n\nBest regards,\nRudra 24 Secure`,
         html: `
-          <div>
-            <h2>Hello ${name},</h2>
-            <p>Thank you for completing the security audit. Here is your personalized security report:</p>
-            <div style="background: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0;">
-              ${report.reportContent.split('\n').map(line => `<p>${line}</p>`).join('')}
+          <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
+            <div style="background-color: #0f2b5b; padding: 20px; text-align: center;">
+              <h1 style="color: #f0c14b; margin: 0;">Your Security Survey Report</h1>
             </div>
-            <p>Best regards,<br>SecureGuard Services</p>
+            <div style="padding: 20px; border: 1px solid #e0e0e0; border-top: none;">
+              <h2 style="color: #0f2b5b;">Hello ${name},</h2>
+              <p>Thank you for completing the security survey. Here is your personalized security report:</p>
+              <div style="background: #f9f9f9; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                ${report.reportContent.split('\n').map(line => `<p>${line}</p>`).join('')}
+              </div>
+              <p>Best regards,<br>Rudra 24 Secure Team</p>
+            </div>
+            <div style="background-color: #f0f0f0; padding: 15px; text-align: center; font-size: 12px; color: #666;">
+              <p>Rudra 24 Secure Services Private Limited</p>
+              <p>Professional Security & Housekeeping</p>
+            </div>
           </div>
         `,
       });
@@ -280,7 +289,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           text: `
             Dear ${reportOwnerName},
             
-            Thank you for providing feedback on our security audit services. We greatly appreciate your input as it helps us improve our services.
+            Thank you for providing feedback on our security survey services. We greatly appreciate your input as it helps us improve our services.
             
             Your feedback has been recorded and our team will review it shortly. If you have additional comments or questions, please feel free to contact us.
             
@@ -294,7 +303,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               </div>
               <div style="padding: 20px; border: 1px solid #e0e0e0; border-top: none;">
                 <p>Dear ${reportOwnerName},</p>
-                <p>Thank you for providing feedback on our security audit services. We greatly appreciate your input as it helps us improve our services.</p>
+                <p>Thank you for providing feedback on our security survey services. We greatly appreciate your input as it helps us improve our services.</p>
                 <p>Your feedback has been recorded and our team will review it shortly. If you have additional comments or questions, please feel free to contact us.</p>
                 <p>Best regards,<br>The Rudra 24 Secure Team</p>
               </div>
