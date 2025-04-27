@@ -12,7 +12,7 @@ import {
   Lightbulb
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import SecurityAuditForm from "@/components/audit/SecurityAuditForm";
+import SecuritySurveyForm from "@/components/audit/SecuritySurveyForm";
 
 export default function SecuritySurveyPage() {
   const { t } = useTranslation();
@@ -368,7 +368,7 @@ export default function SecuritySurveyPage() {
             Fill out our brief security survey form below to receive a customized security assessment report. Our experts will analyze your information and provide recommendations tailored to your specific security needs.
           </p>
           
-          <SecurityAuditForm />
+          <SecuritySurveyForm />
         </div>
       </div>
     </div>

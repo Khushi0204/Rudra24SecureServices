@@ -45,7 +45,7 @@ const mainServices = [
   },
   {
     icon: <Eye className="text-2xl" />,
-    title: "Security Audit & Consultation",
+    title: "Security Survey & Consultation",
     description:
       "Free comprehensive security assessments to identify vulnerabilities and recommend tailored improvements.",
     features: ["Free assessment", "Detailed reports", "Implementation plans"]
@@ -284,7 +284,7 @@ export default function Services() {
               <a href="#" id="open-survey-btn" className="relative z-10">
                 <span className="relative z-10 inline-flex items-center">
                   <ClipboardCheck className="mr-2 h-5 w-5 animate-pulse-slow" />
-                  Start Free Security Audit
+                  Start Free Security Survey
                 </span>
                 <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-yellow-500/0 via-yellow-200/30 to-yellow-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
               </a>
