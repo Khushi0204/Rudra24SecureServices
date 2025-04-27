@@ -133,26 +133,26 @@ export default function Gallery() {
   };
   
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold text-blue-800">Company Gallery</h1>
-        <p className="mt-2 text-gray-600">Browse through images of our operations, team and branding</p>
+    <div className="responsive-container page-section">
+      <div className="text-center mb-6 animate-slide-up">
+        <h1 className="section-title">Company Gallery</h1>
+        <p className="section-subtitle">Browse through images of our operations, team and branding</p>
       </div>
       
       {/* Upload Button */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-6 animate-fade-in">
         <Button 
-          className="bg-blue-700 hover:bg-blue-800 text-white flex items-center gap-2"
+          className="bg-blue-700 hover:bg-blue-800 text-white flex items-center gap-2 animate-hover-scale shadow-md"
           onClick={toggleUploadForm}
         >
-          <UploadCloud size={18} />
+          <UploadCloud size={18} className={showUploadForm ? "rotate-180 transition-transform duration-300" : "transition-transform duration-300"} />
           {showUploadForm ? 'Cancel Upload' : 'Add Images'}
         </Button>
       </div>
       
       {/* Simple Upload Form */}
       {showUploadForm && (
-        <div className="max-w-lg mx-auto mb-8 p-6 bg-white rounded-lg shadow-md">
+        <div className="max-w-lg mx-auto mb-8 p-6 bg-white rounded-lg shadow-lg animate-slide-up border border-blue-100">
           <h2 className="text-xl font-bold text-blue-800 mb-4">Upload New Images</h2>
           
           <div className="mb-4">
@@ -177,7 +177,7 @@ export default function Gallery() {
               Select Images (Multiple)
             </label>
             <div 
-              className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50"
+              className="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center cursor-pointer hover:bg-blue-50/30 transition-all duration-300 animate-pulse-slow"
               onClick={() => fileInputRef.current?.click()}
             >
               <input 
@@ -188,9 +188,9 @@ export default function Gallery() {
                 ref={fileInputRef}
                 onChange={handleFileChange}
               />
-              <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />
-              <p className="mt-2 text-sm text-gray-500">Click to select or drag images here</p>
-              <p className="text-xs text-gray-400 mt-1">JPG, PNG, GIF up to 10MB</p>
+              <UploadCloud className="mx-auto h-12 w-12 text-blue-500" />
+              <p className="mt-2 text-sm text-gray-600 font-medium">Click to select or drag images here</p>
+              <p className="text-xs text-gray-500 mt-1">JPG, PNG, GIF up to 10MB</p>
             </div>
           </div>
           
@@ -221,73 +221,78 @@ export default function Gallery() {
         </div>
       )}
       
-      {/* Simple Category Filters */}
-      <div className="flex justify-center flex-wrap gap-2 mb-8">
-        {categories.map(category => (
+      {/* Category Filters with Animation */}
+      <div className="flex justify-center flex-wrap gap-3 mb-8 animate-fade-in">
+        {categories.map((category, index) => (
           <button
             key={category.id}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
+            className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 shadow-sm
               ${activeCategory === category.id 
-                ? 'bg-blue-600 text-white' 
+                ? 'bg-blue-700 text-white scale-105 shadow-md' 
                 : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
               }`}
             onClick={() => setActiveCategory(category.id)}
+            style={{ animationDelay: `${index * 0.1}s` }}
           >
             {category.name}
           </button>
         ))}
       </div>
       
-      {/* Image Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {displayedImages.map((image) => (
+      {/* Image Grid with Animation */}
+      <div className="image-grid">
+        {displayedImages.map((image, index) => (
           <Card 
             key={image.id}
-            className="overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+            className="overflow-hidden cursor-pointer animate-hover-scale card-transition animate-fade-in"
+            style={{ animationDelay: `${index * 0.05}s` }}
             onClick={() => handleImageClick(image.src)}
           >
-            <div className="h-48 overflow-hidden">
+            <div className="h-48 sm:h-52 md:h-56 overflow-hidden">
               <img 
                 src={image.src} 
                 alt={image.title} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                 onError={(e) => {
                   e.currentTarget.src = "https://via.placeholder.com/300x200?text=Image+Not+Available";
                 }}
               />
             </div>
-            <CardContent className="p-3">
-              <h3 className="font-medium text-blue-700">{image.title}</h3>
-              <p className="text-xs text-gray-500 mt-1">{image.category}</p>
+            <CardContent className="p-4">
+              <h3 className="font-medium text-blue-700 text-lg">{image.title}</h3>
+              <p className="text-xs text-gray-500 mt-1 bg-gray-100 inline-block px-2 py-0.5 rounded">{image.category}</p>
             </CardContent>
           </Card>
         ))}
       </div>
       
-      {/* Image Preview Modal */}
+      {/* Enhanced Image Preview Modal with Animation */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4 animate-fade-in"
           onClick={closePreview}
         >
-          <div className="relative max-w-4xl max-h-full">
+          <div className="relative max-w-4xl max-h-full animate-slide-up">
             <button 
-              className="absolute -top-10 right-0 text-white text-xl"
+              className="absolute -top-12 right-0 text-white text-xl bg-blue-700 hover:bg-blue-800 transition-colors duration-300 rounded-full w-10 h-10 flex items-center justify-center"
               onClick={closePreview}
             >
-              ✕ Close
+              ✕
             </button>
             <img 
               src={selectedImage} 
               alt="Preview" 
-              className="max-w-full max-h-[85vh] object-contain"
+              className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl border-2 border-white/10"
             />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 rounded-b-lg">
+              <p className="text-white text-sm">Click outside the image to close preview</p>
+            </div>
           </div>
         </div>
       )}
       
-      {/* Simple Image Usage Policy */}
-      <div className="mt-12 bg-blue-50 p-4 rounded-lg max-w-3xl mx-auto">
+      {/* Enhanced Image Usage Policy */}
+      <div className="mt-12 bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg max-w-3xl mx-auto shadow-md animate-fade-in">
         <h2 className="text-lg font-semibold text-blue-800 mb-2">Image Usage Policy</h2>
         <p className="text-sm text-gray-700">
           All images are the property of Rudra 24 Secure Services Pvt. Ltd.

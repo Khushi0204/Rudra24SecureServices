@@ -85,3 +85,140 @@
     @apply bg-primary text-white border-primary;
   }
 }
+
+/* Responsive utilities */
+@layer components {
+  .responsive-container {
+    @apply w-full px-4 sm:px-6 md:px-8 mx-auto max-w-7xl;
+  }
+  
+  .page-section {
+    @apply py-8 md:py-12 lg:py-16;
+  }
+  
+  .section-title {
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold text-blue-800 mb-4;
+  }
+  
+  .section-subtitle {
+    @apply text-base md:text-lg text-gray-600 max-w-3xl mx-auto;
+  }
+}
+
+/* Animation utilities */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-in-out;
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.5s ease-in-out;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-hover-scale {
+    @apply transition-transform duration-300;
+  }
+  
+  .animate-hover-scale:hover {
+    @apply transform scale-105;
+  }
+  
+  .animate-hover-brightness {
+    @apply transition-all duration-300;
+  }
+  
+  .animate-hover-brightness:hover {
+    @apply brightness-110;
+  }
+  
+  .card-transition {
+    @apply transition-all duration-300 hover:shadow-lg;
+  }
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Responsive image grid */
+.image-grid {
+  @apply grid gap-4;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-blue-800;
+}
+
+/* Media queries for enhanced responsiveness */
+@media (max-width: 640px) {
+  .mobile-menu-container {
+    @apply fixed top-0 left-0 w-full h-full bg-white z-50 transform transition-transform duration-300;
+  }
+  
+  .mobile-menu-open {
+    @apply translate-x-0;
+  }
+  
+  .mobile-menu-closed {
+    @apply -translate-x-full;
+  }
+}
