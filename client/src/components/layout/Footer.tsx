@@ -1,96 +1,84 @@
-import { Shield, MapPin, Phone, Mail } from "lucide-react";
+import { Shield, MapPin, Phone, Mail, Facebook, Twitter, Linkedin, Instagram, ExternalLink, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
-    <footer className="bg-primary-light text-white pt-12 pb-6">
-      <div className="container mx-auto px-4">
+    <footer className="bg-gradient-to-b from-blue-900 to-blue-950 text-white pt-12 pb-6">
+      <div className="responsive-container">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          <div>
-            <h3 className="text-lg font-semibold mb-4">About SecureGuard</h3>
-            <p className="text-gray-300 mb-4">
-              Providing professional security and housekeeping services to
-              residential and commercial clients for over 15 years.
+          <div className="animate-slide-up">
+            <div className="flex items-center mb-4">
+              <Shield className="text-yellow-400 mr-2" />
+              <h3 className="text-lg font-semibold text-yellow-400">About Rudra 24 Secure</h3>
+            </div>
+            <img 
+              src="/images/rudra-text-logo-new.jpg" 
+              alt="Rudra 24 Secure" 
+              className="h-16 object-contain mb-4 rounded-md"
+            />
+            <p className="text-blue-100 mb-6 text-sm">
+              Providing comprehensive security and facility management services to
+              residential, commercial, and industrial clients since 2018.
             </p>
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="text-gray-300 hover:text-secondary transition"
+                className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition-all duration-300 text-white hover:scale-110"
+                aria-label="Facebook"
               >
-                <i className="fab fa-facebook-f"></i>
+                <Facebook size={18} />
               </a>
               <a
                 href="#"
-                className="text-gray-300 hover:text-secondary transition"
+                className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition-all duration-300 text-white hover:scale-110"
+                aria-label="Twitter"
               >
-                <i className="fab fa-twitter"></i>
+                <Twitter size={18} />
               </a>
               <a
                 href="#"
-                className="text-gray-300 hover:text-secondary transition"
+                className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition-all duration-300 text-white hover:scale-110"
+                aria-label="LinkedIn"
               >
-                <i className="fab fa-linkedin-in"></i>
+                <Linkedin size={18} />
               </a>
               <a
                 href="#"
-                className="text-gray-300 hover:text-secondary transition"
+                className="bg-blue-800 hover:bg-blue-700 p-2 rounded-full transition-all duration-300 text-white hover:scale-110"
+                aria-label="Instagram"
               >
-                <i className="fab fa-instagram"></i>
+                <Instagram size={18} />
               </a>
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
+          <div className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <div className="flex items-center mb-4">
+              <Shield className="text-yellow-400 mr-2" />
+              <h3 className="text-lg font-semibold text-yellow-400">Our Services</h3>
+            </div>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Security Guards
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Surveillance Systems
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Access Control
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Housekeeping
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Property Maintenance
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Security Audits
-                </a>
-              </li>
+              {[
+                { name: "Security Guards", href: "/services" },
+                { name: "Surveillance Systems", href: "/services" },
+                { name: "Access Control", href: "/services" },
+                { name: "Housekeeping", href: "/services" },
+                { name: "Property Maintenance", href: "/services" },
+                { name: "Security Audits", href: "#audit" }
+              ].map((service, index) => (
+                <li key={index} className="group">
+                  <Link
+                    to={service.href}
+                    className="text-blue-100 hover:text-yellow-300 transition-all duration-300 flex items-center"
+                  >
+                    <ChevronRight size={14} className="mr-1 text-blue-400 group-hover:text-yellow-300 transition-all duration-300 group-hover:translate-x-1" />
+                    <span>{service.name}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

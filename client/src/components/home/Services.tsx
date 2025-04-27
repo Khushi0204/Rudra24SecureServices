@@ -100,11 +100,11 @@ export default function Services() {
   const { t } = useTranslation();
   
   return (
-    <section id="services" className="py-16 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 text-primary">Our Services</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+    <section id="services" className="page-section bg-gradient-to-b from-gray-50 to-white">
+      <div className="responsive-container">
+        <div className="text-center mb-12 animate-slide-up">
+          <h2 className="section-title">Our Services</h2>
+          <p className="section-subtitle">
             Providing top-tier security and facility management services tailored to
             your specific needs with customizable solutions.
           </p>
@@ -114,16 +114,21 @@ export default function Services() {
           {mainServices.map((service, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg shadow-lg p-6 transition hover:shadow-xl border-t-4 border-blue-600"
+              className="bg-white rounded-lg shadow-lg p-6 transition-all duration-300 hover:shadow-xl border-t-4 border-blue-600 animate-hover-scale animate-fade-in card-transition"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-14 h-14 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mb-4">
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-full flex items-center justify-center mb-4 shadow-inner">
                 {service.icon}
               </div>
               <h3 className="text-xl font-semibold mb-3 text-blue-800">{service.title}</h3>
               <p className="text-gray-600 mb-4 text-sm">{service.description}</p>
               <div className="flex flex-wrap gap-2">
                 {service.features.map((feature, i) => (
-                  <Badge key={i} variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                  <Badge 
+                    key={i} 
+                    variant="outline" 
+                    className="bg-blue-50 text-blue-700 border-blue-200 transition-all duration-300 hover:bg-blue-100 hover:scale-105"
+                  >
                     {feature}
                   </Badge>
                 ))}
@@ -132,10 +137,10 @@ export default function Services() {
           ))}
         </div>
 
-        <div className="bg-blue-900 text-white rounded-xl p-8 shadow-xl mb-16">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-semibold mb-2">Customizable Security Plans</h3>
-            <p className="max-w-2xl mx-auto">
+        <div className="bg-gradient-to-r from-blue-900 to-blue-800 text-white rounded-xl p-8 shadow-xl mb-16 animate-fade-in">
+          <div className="text-center mb-8 animate-slide-up">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-3">Customizable Security Plans</h3>
+            <p className="max-w-2xl mx-auto text-blue-100">
               Instead of offering generic security services, we provide tailor-made solutions for your specific needs
             </p>
           </div>
@@ -168,12 +173,16 @@ export default function Services() {
                 icon: <User />
               }
             ].map((item, index) => (
-              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                <div className="h-10 w-10 mx-auto mb-2 text-yellow-400">
+              <div 
+                key={index} 
+                className="bg-white/10 backdrop-blur-sm rounded-lg p-5 text-center border border-blue-700/30 hover:bg-white/20 transition-all duration-300 animate-hover-scale animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="h-12 w-12 mx-auto mb-3 text-yellow-400 bg-blue-950/60 rounded-full flex items-center justify-center p-2.5">
                   {item.icon}
                 </div>
-                <h4 className="font-medium text-yellow-200 mb-1">{item.title}</h4>
-                <p className="text-sm text-blue-200">{item.description}</p>
+                <h4 className="font-medium text-yellow-200 mb-1 text-lg">{item.title}</h4>
+                <p className="text-sm text-blue-100">{item.description}</p>
               </div>
             ))}
           </div>
@@ -183,22 +192,23 @@ export default function Services() {
           {securityOperations.map((op, index) => (
             <div 
               key={index}
-              className="bg-white p-6 rounded-lg shadow border-l-4 border-blue-600 hover:shadow-md transition"
+              className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 hover:shadow-lg transition-all duration-300 animate-hover-scale animate-fade-in"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <h3 className="font-semibold text-blue-800 mb-2">{op.title}</h3>
+              <h3 className="font-semibold text-blue-800 mb-2 text-lg">{op.title}</h3>
               <p className="text-gray-600 text-sm">{op.description}</p>
             </div>
           ))}
         </div>
 
-        <div className="text-center">
-          <p className="text-xl text-blue-800 font-medium mb-6">
+        <div className="text-center p-8 bg-blue-50 rounded-lg shadow-inner animate-fade-in">
+          <p className="text-xl md:text-2xl text-blue-800 font-medium mb-6 animate-pulse-slow">
             "FOR MOST RELIABLE AND PROFESSIONAL SECURITY AT REASONABLE COST"
           </p>
           <Button
             size="lg"
             variant="default"
-            className="bg-blue-700 hover:bg-blue-800"
+            className="bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white shadow-md hover:shadow-lg transition-all duration-300 animate-hover-scale"
             asChild
           >
             <a href="#audit">Start Free Security Audit</a>
