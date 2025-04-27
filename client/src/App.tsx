@@ -16,6 +16,7 @@ import ClientFeedbackPage from "@/pages/ClientFeedback";
 import Gallery from "@/pages/Gallery";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import FloatingContactButton from "@/components/shared/FloatingContactButton";
 
 function Router() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Router />
           </main>
           <Footer />
+          <FloatingContactButton />
           <Toaster />
         </div>
       </TooltipProvider>
