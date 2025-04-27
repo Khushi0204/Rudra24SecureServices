@@ -93,9 +93,9 @@ export default function Header() {
             <div ref={dropdownRef}>
               <button
                 onClick={() => toggleDropdown(item.name)}
-                className="flex items-center hover:text-yellow-300 transition-all duration-300 relative group"
+                className="flex items-center hover:text-yellow-300 transition-all duration-300 relative group py-1 px-2"
               >
-                <span>{t(item.name)}</span>
+                <span className="font-medium">{t(item.name)}</span>
                 <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${dropdownOpen === item.name ? 'rotate-180' : ''}`} />
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
               </button>
@@ -124,10 +124,10 @@ export default function Header() {
           ) : (
             <Link
               to={item.href}
-              className="hover:text-yellow-300 transition-all duration-300 relative group"
+              className="hover:text-yellow-300 transition-all duration-300 relative group py-1 px-2"
               onClick={isMobile ? closeSheet : undefined}
             >
-              <span>{t(item.name)}</span>
+              <span className="font-medium">{t(item.name)}</span>
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
             </Link>
           )}
@@ -136,27 +136,32 @@ export default function Header() {
       <li className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
         <LanguageSwitcher />
       </li>
+      <li className="animate-fade-in mx-2 h-6" style={{ animationDelay: '0.65s' }}>
+        <div className="h-full w-px bg-blue-700"></div>
+      </li>
       <li className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
-        <Button
-          variant="outline"
-          size="sm"
-          className="bg-green-600 text-white hover:bg-green-700 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md mr-2"
-          asChild
-        >
-          <Link to="/careers" onClick={isMobile ? closeSheet : undefined}>
-            Job Portal
-          </Link>
-        </Button>
-        <Button
-          variant="secondary"
-          size="sm"
-          className="hover:bg-yellow-400 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md"
-          asChild
-        >
-          <a href="#login" onClick={isMobile ? closeSheet : undefined}>
-            {t('nav.clientLogin')}
-          </a>
-        </Button>
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-green-600 text-white hover:bg-green-700 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md px-4 font-medium"
+            asChild
+          >
+            <Link to="/careers" onClick={isMobile ? closeSheet : undefined}>
+              Job Portal
+            </Link>
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            className="hover:bg-yellow-400 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md px-4 font-medium"
+            asChild
+          >
+            <a href="#login" onClick={isMobile ? closeSheet : undefined}>
+              {t('nav.clientLogin')}
+            </a>
+          </Button>
+        </div>
       </li>
     </>
   );
@@ -222,7 +227,7 @@ export default function Header() {
           </Sheet>
         ) : (
           <nav className="animate-fade-in">
-            <ul className="flex space-x-4 items-center">
+            <ul className="flex items-center space-x-5">
               <NavLinks />
             </ul>
           </nav>
