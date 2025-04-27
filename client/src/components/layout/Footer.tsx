@@ -82,104 +82,92 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+          <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <div className="flex items-center mb-4">
+              <ExternalLink className="text-yellow-400 mr-2" />
+              <h3 className="text-lg font-semibold text-yellow-400">Quick Links</h3>
+            </div>
             <ul className="space-y-2">
-              <li>
-                <a
-                  href="#home"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#services"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Services
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#audit"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Security Audit
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-300 hover:text-secondary transition"
-                >
-                  Client Portal
-                </a>
-              </li>
+              {[
+                { name: t('nav.home'), href: "/" },
+                { name: t('nav.services'), href: "/services" },
+                { name: t('nav.about'), href: "/about" },
+                { name: t('nav.careers'), href: "/careers" },
+                { name: t('nav.gallery'), href: "/gallery" },
+                { name: t('nav.feedback'), href: "/feedback" },
+                { name: "Client Portal", href: "#", badge: "Coming Soon" }
+              ].map((link, index) => (
+                <li key={index} className="group">
+                  <Link
+                    to={link.href}
+                    className="text-blue-100 hover:text-yellow-300 transition-all duration-300 flex items-center"
+                  >
+                    <ChevronRight size={14} className="mr-1 text-blue-400 group-hover:text-yellow-300 transition-all duration-300 group-hover:translate-x-1" />
+                    <span>{link.name}</span>
+                    {link.badge && (
+                      <span className="ml-2 text-xs bg-blue-800 text-yellow-300 px-1.5 py-0.5 rounded-full">
+                        {link.badge}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <ul className="space-y-2">
-              <li className="flex items-start">
-                <MapPin className="mt-1 mr-2 text-secondary h-4 w-4" />
-                <span className="text-gray-300">
-                  1234 Security Avenue, Suite 500
-                  <br />
-                  New York, NY 10001
+          <div className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <div className="flex items-center mb-4">
+              <Mail className="text-yellow-400 mr-2" />
+              <h3 className="text-lg font-semibold text-yellow-400">Contact Us</h3>
+            </div>
+            <ul className="space-y-3">
+              <li className="flex items-start group transition-all duration-300 hover:translate-x-1">
+                <MapPin className="mt-1 mr-2 text-yellow-400 h-5 w-5 flex-shrink-0" />
+                <span className="text-blue-100 group-hover:text-yellow-300 transition-colors duration-300">
+                  A-8, Sector-3, Noida, Uttar Pradesh 201301
                 </span>
               </li>
-              <li className="flex items-start">
-                <Phone className="mt-1 mr-2 text-secondary h-4 w-4" />
-                <span className="text-gray-300">(555) 123-4567</span>
+              <li className="flex items-start group transition-all duration-300 hover:translate-x-1">
+                <Phone className="mt-1 mr-2 text-yellow-400 h-5 w-5 flex-shrink-0" />
+                <span className="text-blue-100 group-hover:text-yellow-300 transition-colors duration-300">
+                  +91 70111 14333<br />
+                  +91 88264 04473
+                </span>
               </li>
-              <li className="flex items-start">
-                <Mail className="mt-1 mr-2 text-secondary h-4 w-4" />
-                <span className="text-gray-300">info@secureguardservices.com</span>
+              <li className="flex items-start group transition-all duration-300 hover:translate-x-1">
+                <Mail className="mt-1 mr-2 text-yellow-400 h-5 w-5 flex-shrink-0" />
+                <a 
+                  href="mailto:Rudra24securegroup@gmail.com"
+                  className="text-blue-100 hover:text-yellow-300 transition-colors duration-300"
+                >
+                  Rudra24securegroup@gmail.com
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 pt-6">
+        <div className="border-t border-blue-800/50 pt-6 mt-8 animate-fade-in">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} SecureGuard Services. All rights reserved.
+            <p className="text-blue-200 mb-4 md:mb-0 text-sm">
+              &copy; {new Date().getFullYear()} <span className="text-yellow-300">Rudra 24 Secure</span>. All rights reserved.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap gap-4 text-sm">
               <a
                 href="#"
-                className="text-gray-400 hover:text-secondary transition"
+                className="text-blue-200 hover:text-yellow-300 transition-colors duration-300"
               >
                 Privacy Policy
               </a>
               <a
                 href="#"
-                className="text-gray-400 hover:text-secondary transition"
+                className="text-blue-200 hover:text-yellow-300 transition-colors duration-300"
               >
                 Terms of Service
               </a>
               <a
-                href="#"
-                className="text-gray-400 hover:text-secondary transition"
+                href="/sitemap"
+                className="text-blue-200 hover:text-yellow-300 transition-colors duration-300"
               >
                 Sitemap
               </a>
