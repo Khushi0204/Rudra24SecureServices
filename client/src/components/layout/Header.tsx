@@ -136,66 +136,59 @@ export default function Header() {
       <li className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
         <LanguageSwitcher />
       </li>
-      <li className="animate-fade-in mx-2 h-6" style={{ animationDelay: '0.65s' }}>
-        <div className="h-full w-px bg-blue-700"></div>
-      </li>
-      <li className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
-        <div className="flex gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-green-600 text-white hover:bg-green-700 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md px-4 font-medium"
-            asChild
-          >
-            <Link to="/careers" onClick={isMobile ? closeSheet : undefined}>
-              Job Portal
-            </Link>
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="hover:bg-yellow-400 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md px-4 font-medium"
-            asChild
-          >
-            <a href="#login" onClick={isMobile ? closeSheet : undefined}>
-              {t('nav.clientLogin')}
-            </a>
-          </Button>
-        </div>
-      </li>
     </>
   );
 
   return (
     <header className="bg-gradient-to-r from-blue-950 to-blue-900 text-white shadow-lg sticky top-0 z-50 animate-fade-in">
-      <div className="responsive-container py-3 md:py-4 flex flex-col md:flex-row justify-between items-center">
-        <div className="flex items-center mb-4 md:mb-0 animate-slide-in">
+      <div className="responsive-container py-3 md:py-4 flex justify-between items-center">
+        <div className="flex items-center animate-slide-in">
           <Link to="/">
             <div className="cursor-pointer transition-transform duration-300 hover:scale-[1.02]">
               <img 
                 src="/images/rudra-text-logo-new.jpg" 
                 alt="Rudra 24 Secure" 
-                className="h-14 md:h-16 object-contain rounded-md shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="h-12 md:h-14 object-contain rounded-md shadow-sm hover:shadow-md transition-shadow duration-300"
               />
               <div className="mt-1">
                 <p className="text-sm text-yellow-400 font-medium">
                   Precision Protection, Powered by Technology
-                </p>
-                <p className="text-xs text-yellow-300">
-                  An ISO 9001:2015 Certified Company
                 </p>
               </div>
             </div>
           </Link>
         </div>
 
-        {isMobile ? (
+        <div className="flex items-center space-x-2 md:space-x-4">
+          <div className="flex gap-1 md:gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-green-600 text-white hover:bg-green-700 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md px-2 md:px-4 font-medium text-xs md:text-sm whitespace-nowrap"
+              asChild
+            >
+              <Link to="/careers">
+                Job Portal
+              </Link>
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              className="hover:bg-yellow-400 transition-all duration-300 animate-hover-scale shadow-sm hover:shadow-md px-2 md:px-4 font-medium text-xs md:text-sm whitespace-nowrap"
+              asChild
+            >
+              <a href="#login">
+                {t('nav.clientLogin')}
+              </a>
+            </Button>
+          </div>
+          
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-white hover:text-yellow-400 animate-hover-scale"
+                className="text-white hover:text-yellow-400 animate-hover-scale ml-1"
               >
                 <Menu className="h-6 w-6" />
               </Button>
@@ -225,13 +218,7 @@ export default function Header() {
               </div>
             </SheetContent>
           </Sheet>
-        ) : (
-          <nav className="animate-fade-in">
-            <ul className="flex items-center space-x-5">
-              <NavLinks />
-            </ul>
-          </nav>
-        )}
+        </div>
       </div>
     </header>
   );
