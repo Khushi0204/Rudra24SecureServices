@@ -45,7 +45,7 @@ const navItems = [
       { name: "Security Guards", href: "/services/security-guards", icon: <Users className="h-4 w-4 mr-2" /> },
       { name: "Surveillance Systems", href: "/services/surveillance", icon: <Camera className="h-4 w-4 mr-2" /> },
       { name: "Facility Management", href: "/services/facility-management", icon: <MopIcon className="h-4 w-4 mr-2" /> },
-      { name: "Security Audit", href: "/services/security-audit", icon: <ClipboardList className="h-4 w-4 mr-2" /> },
+      { name: "Security Survey", href: "/services/security-survey", icon: <ClipboardList className="h-4 w-4 mr-2" /> },
       { name: "Specialized Security", href: "/services/specialized-security", icon: <Shield className="h-4 w-4 mr-2" /> },
       { name: "Emergency Response", href: "/services/emergency-response", icon: <Siren className="h-4 w-4 mr-2" /> },
     ]

@@ -10,7 +10,7 @@ import ServicesPage from "@/pages/services";
 import SecurityGuardsPage from "@/pages/services/SecurityGuards";
 import SurveillancePage from "@/pages/services/Surveillance";
 import FacilityManagementPage from "@/pages/services/FacilityManagement";
-import SecurityAuditPage from "@/pages/services/SecurityAudit";
+import SecuritySurveyPage from "@/pages/services/SecuritySurvey";
 import SpecializedSecurity from "@/pages/services/SpecializedSecurity";
 import EmergencyResponse from "@/pages/services/EmergencyResponse";
 import AboutPage from "@/pages/About";
@@ -35,7 +35,7 @@ function Router() {
         <Route path="/services/security-guards" component={SecurityGuardsPage} />
         <Route path="/services/surveillance" component={SurveillancePage} />
         <Route path="/services/facility-management" component={FacilityManagementPage} />
-        <Route path="/services/security-audit" component={SecurityAuditPage} />
+        <Route path="/services/security-survey" component={SecuritySurveyPage} />
         <Route path="/services/specialized-security" component={SpecializedSecurity} />
         <Route path="/services/emergency-response" component={EmergencyResponse} />
         <Route path="/about" component={AboutPage} />
