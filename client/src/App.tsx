@@ -11,9 +11,13 @@ import SecurityGuardsPage from "@/pages/services/SecurityGuards";
 import SurveillancePage from "@/pages/services/Surveillance";
 import FacilityManagementPage from "@/pages/services/FacilityManagement";
 import SecurityAuditPage from "@/pages/services/SecurityAudit";
+import SpecializedSecurity from "@/pages/services/SpecializedSecurity";
+import EmergencyResponse from "@/pages/services/EmergencyResponse";
 import AboutPage from "@/pages/About";
 import CareersPage from "@/pages/Careers";
 import ClientFeedbackPage from "@/pages/ClientFeedback";
+import ContactPage from "@/pages/Contact";
+import ReferralAndRewards from "@/pages/ReferralAndRewards";
 import Gallery from "@/pages/Gallery";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -32,10 +36,14 @@ function Router() {
         <Route path="/services/surveillance" component={SurveillancePage} />
         <Route path="/services/facility-management" component={FacilityManagementPage} />
         <Route path="/services/security-audit" component={SecurityAuditPage} />
+        <Route path="/services/specialized-security" component={SpecializedSecurity} />
+        <Route path="/services/emergency-response" component={EmergencyResponse} />
         <Route path="/about" component={AboutPage} />
         <Route path="/careers" component={CareersPage} />
         <Route path="/feedback" component={ClientFeedbackPage} />
         <Route path="/gallery" component={Gallery} />
+        <Route path="/contact" component={ContactPage} />
+        <Route path="/referral-rewards" component={ReferralAndRewards} />
         <Route component={NotFound} />
       </Switch>
     </PageTransition>

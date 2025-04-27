@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
-import { Shield, ChevronDown, Users, Camera, ClipboardList } from "lucide-react";
+import { Shield, ChevronDown, Users, Camera, ClipboardList, Award, Siren, Contact, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
@@ -46,12 +46,16 @@ const navItems = [
       { name: "Surveillance Systems", href: "/services/surveillance", icon: <Camera className="h-4 w-4 mr-2" /> },
       { name: "Facility Management", href: "/services/facility-management", icon: <MopIcon className="h-4 w-4 mr-2" /> },
       { name: "Security Audit", href: "/services/security-audit", icon: <ClipboardList className="h-4 w-4 mr-2" /> },
+      { name: "Specialized Security", href: "/services/specialized-security", icon: <Shield className="h-4 w-4 mr-2" /> },
+      { name: "Emergency Response", href: "/services/emergency-response", icon: <Siren className="h-4 w-4 mr-2" /> },
     ]
   },
   { name: "nav.about", href: "/about" },
   { name: "nav.careers", href: "/careers" },
   { name: "nav.gallery", href: "/gallery" },
   { name: "nav.clientFeedback", href: "/feedback" },
+  { name: "Referral & Rewards", href: "/referral-rewards", icon: <Gift className="h-4 w-4 mr-2" /> },
+  { name: "Contact Us", href: "/contact", icon: <Contact className="h-4 w-4 mr-2" /> },
 ];
 
 export default function Header() {

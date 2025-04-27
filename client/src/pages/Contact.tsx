@@ -81,19 +81,19 @@ export default function ContactPage() {
       id: 1,
       name: "Rudra 24 Secure Headquarters",
       address: "123 Security Plaza, New Delhi, India",
-      coordinates: [28.6139, 77.2090], // Delhi coordinates
+      coordinates: [28.6139, 77.2090] as [number, number], // Delhi coordinates
     },
     {
       id: 2,
       name: "Mumbai Office",
       address: "456 Safety Tower, Mumbai, India",
-      coordinates: [19.0760, 72.8777], // Mumbai coordinates
+      coordinates: [19.0760, 72.8777] as [number, number], // Mumbai coordinates
     },
     {
       id: 3,
       name: "Bangalore Branch",
       address: "789 Protection Road, Bangalore, India",
-      coordinates: [12.9716, 77.5946], // Bangalore coordinates
+      coordinates: [12.9716, 77.5946] as [number, number], // Bangalore coordinates
     },
   ];
 
