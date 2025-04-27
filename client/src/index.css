@@ -119,12 +119,45 @@
     animation: slideIn 0.5s ease-in-out;
   }
   
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease-in-out;
+  }
+  
+  .animate-slide-in-left {
+    animation: slideInLeft 0.5s ease-in-out;
+  }
+  
+  .animate-zoom-in {
+    animation: zoomIn 0.7s ease-out;
+  }
+  
+  .animate-flip-in {
+    animation: flipIn 0.8s ease-out;
+  }
+  
+  .animate-rotate-in {
+    animation: rotateIn 0.7s ease-out;
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
   
   .animate-bounce-slow {
     animation: bounce 3s ease-in-out infinite;
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2.5s linear infinite;
+    background: linear-gradient(90deg, 
+      rgba(255,255,255,0) 0%, 
+      rgba(255,255,255,0.2) 50%, 
+      rgba(255,255,255,0) 100%);
+    background-size: 200% 100%;
   }
   
   .animate-hover-scale {
@@ -143,8 +176,26 @@
     @apply brightness-110;
   }
   
+  .animate-hover-rotate {
+    @apply transition-transform duration-300;
+  }
+  
+  .animate-hover-rotate:hover {
+    @apply transform rotate-3;
+  }
+  
   .card-transition {
     @apply transition-all duration-300 hover:shadow-lg;
+  }
+  
+  .card-transition-3d {
+    @apply transition-all duration-300 transform;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  .card-transition-3d:hover {
+    @apply shadow-xl -translate-y-2 rotate-1;
   }
 }
 
@@ -195,6 +246,79 @@
   }
   50% {
     transform: translateY(-15px);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes flipIn {
+  from {
+    transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(400px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    transform: rotate3d(0, 0, 1, -15deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotate3d(0, 0, 1, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }
 

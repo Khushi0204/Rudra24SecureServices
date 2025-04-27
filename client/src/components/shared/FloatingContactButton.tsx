@@ -25,10 +25,11 @@ export default function FloatingContactButton() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 animate-bounce-slow">
+      <div className="absolute -inset-1 bg-gradient-to-r from-green-600 to-blue-600 rounded-full opacity-70 blur-sm animate-pulse-slow"></div>
       <Button
         size="lg"
         variant="default"
-        className="bg-green-600 hover:bg-green-700 rounded-full p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 font-bold text-lg"
+        className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 rounded-full p-6 shadow-lg hover:shadow-xl transition-all duration-500 flex items-center gap-2 font-bold text-lg relative z-10"
         onClick={() => {
           // Scroll to contact section
           const contactSection = document.getElementById('contact');
@@ -37,8 +38,11 @@ export default function FloatingContactButton() {
           }
         }}
       >
-        <PhoneCall className="h-6 w-6 mr-1" />
-        <span>Contact Expert</span>
+        <PhoneCall className="h-6 w-6 mr-1 animate-pulse" />
+        <span className="animate-shimmer bg-clip-text relative">
+          <span className="animate-shimmer absolute inset-0 w-full bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full animate-shimmer"></span>
+          Contact Expert
+        </span>
       </Button>
     </div>
   );
